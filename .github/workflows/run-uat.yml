@@ -1,4 +1,4 @@
-name: Run uat docker
+name: Run UAT docker
 
 on:
   workflow_dispatch:

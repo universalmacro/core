@@ -1,4 +1,4 @@
-name: Production
+name: Run PRD docker
 
 on:
   workflow_dispatch:
@@ -15,4 +15,4 @@ jobs:
           script: |
             sudo docker stop ${{ vars.DOCKER_NAME }}
             sudo docker rm ${{ vars.DOCKER_NAME }}
-            sudo docker run -dp 10300:8080 --name ${{ vars.DOCKER_NAME }} --mount type=bind,source="$(pwd)"/config/uat.core.env.yaml,target=/app/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
+            sudo docker run -dp 10300:8080 --name ${{ vars.DOCKER_NAME }} --mount type=bind,source="$(pwd)"/config/prd.core.env.yaml,target=/app/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
