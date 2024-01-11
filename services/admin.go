@@ -7,12 +7,15 @@ import (
 	"github.com/universalmacro/core/dao/repositories"
 )
 
+// Create Root account
 func init() {
 	adminRepository := repositories.GetAdminRepository()
 	account := config.GetString("init.account")
 	root, _ := adminRepository.FindOne("account = ?", account)
 	if root == nil {
-		root = &entities.Admin{}
+		root = &entities.Admin{
+			Role: "ROOT",
+		}
 		root.SetPassword(config.GetString("init.password"))
 		adminRepository.Create(root)
 	}
