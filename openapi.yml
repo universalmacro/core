@@ -97,7 +97,7 @@ components:
           type: string
         account:
           type: string
-        PhoneNumber:
+        phoneNumber:
           $ref: '#/components/schemas/PhoneNumber'
         role:
           $ref: '#/components/schemas/Role'
