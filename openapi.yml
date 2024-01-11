@@ -14,18 +14,6 @@ tags:
   - name: Sessions
   - name: Node
 paths:
-  /admins/self:
-    get:
-      tags: [Admin]
-      description: Get admin self info
-      operationId: GetAdminSelf
-      responses:
-        '200':
-          description: 'Get Self info'
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Admin'
   /admins:
     post:
       tags: [Admin]
@@ -58,6 +46,19 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminList'
+  /admins/self:
+    get:
+      tags: [Admin]
+      description: Get admin self info
+      operationId: GetAdminSelf
+      responses:
+        '200':
+          description: 'Get Self info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+  
   /sessions:
     post:
       tags: [Sessions]
