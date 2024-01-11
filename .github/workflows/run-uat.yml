@@ -14,4 +14,6 @@ jobs:
           password: ${{ secrets.PASSWORD }}
           script: |
             sudo docker pull ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
-            sudo docker run -dp 8080:8080 --name ${{ vars.DOCKER_NAME }}-uat --mount type=bind,source="$(pwd)"/uat.env.yaml,target=/app/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
+            sudo docker stop ${{ vars.DOCKER_NAME }}-uat
+            sudo docker rm ${{ vars.DOCKER_NAME }}-uat
+            sudo docker run -dp 11300:8080 --name ${{ vars.DOCKER_NAME }}-uat --mount type=bind,source="$(pwd)"/uat.core.env.yaml,target=/app/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
