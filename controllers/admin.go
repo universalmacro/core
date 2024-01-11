@@ -13,6 +13,6 @@ func newAdminController() *AdminController {
 	return &AdminController{adminService: services.GetAdminService()}
 }
 
-func (a *AdminController) Login(ctx *gin.Context) {
+func (a *AdminController) CreateSession(ctx *gin.Context) {
 
 }
