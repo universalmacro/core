@@ -133,6 +133,8 @@ github.com/universalmacro/common v0.0.0-20240111042219-27854131eb05 h1:wTNvWdR/D
 github.com/universalmacro/common v0.0.0-20240111042219-27854131eb05/go.mod h1:JIJBYUp23xuSLy06pBHEBaXmrMB8CNuDcO1a10oAAOY=
 github.com/universalmacro/common v0.0.0-20240111055203-339a0d82061e h1:8ekC6oTVutVOJ8hqkKGvyIbKv9kCaRxTDWDK9R79xBE=
 github.com/universalmacro/common v0.0.0-20240111055203-339a0d82061e/go.mod h1:JIJBYUp23xuSLy06pBHEBaXmrMB8CNuDcO1a10oAAOY=
+github.com/universalmacro/common v0.0.0-20240111130251-9591fe97d7e2 h1:wDs9GuFigqrZky394Xmq+jfrnJClnNio2gYSR9IsyhE=
+github.com/universalmacro/common v0.0.0-20240111130251-9591fe97d7e2/go.mod h1:JIJBYUp23xuSLy06pBHEBaXmrMB8CNuDcO1a10oAAOY=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
 go.uber.org/multierr v1.11.0/go.mod h1:20+QtiLqy0Nd6FdQB9TLXag12DsQkrbs3htMFfDN80Y=
 golang.org/x/arch v0.0.0-20210923205945-b76863e36670/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=

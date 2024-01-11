@@ -23,8 +23,3 @@ func GetAdminRepository() *AdminRepository {
 type AdminRepository struct {
 	*dao.Repository[entities.Admin]
 }
-
-// func (a *AdminRepository) GetByAccount(id uint) *entities.Admin {
-
-// 	return admin
-// }

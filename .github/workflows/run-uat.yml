@@ -3,7 +3,7 @@ name: Run UAT docker
 on:
   workflow_dispatch:
 jobs:
-  build:
+  UAT:
     runs-on: ubuntu-latest
     steps:
       - name: Update docker

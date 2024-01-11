@@ -2,6 +2,7 @@ package controllers
 
 import (
 	"github.com/gin-gonic/gin"
+	"github.com/universalmacro/core/controllers/models"
 	"github.com/universalmacro/core/services"
 )
 
@@ -14,5 +15,7 @@ func newSessionsController() *SessionsController {
 }
 
 func (a *SessionsController) CreateSession(ctx *gin.Context) {
+	var createSessionRequest models.CreateSessionRequest
+	ctx.ShouldBindJSON(&createSessionRequest)
 
 }

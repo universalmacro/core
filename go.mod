@@ -3,7 +3,7 @@ module github.com/universalmacro/core
 go 1.21.1
 
 require (
-	github.com/universalmacro/common v0.0.0-20240111055203-339a0d82061e
+	github.com/universalmacro/common v0.0.0-20240111130251-9591fe97d7e2
 	gorm.io/gorm v1.25.5
 )
 

@@ -1,7 +1,10 @@
 package services
 
 import (
+	"errors"
+
 	"github.com/universalmacro/common/config"
+	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/common/singleton"
 	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/dao/repositories"
@@ -33,4 +36,17 @@ func newAdminService() *AdminService {
 
 type AdminService struct {
 	adminRepository *repositories.AdminRepository
+}
+
+var ErrorPasswordNotMatch = errors.New("password not match")
+
+func (a *AdminService) CreateSession(account, password string) (string, error) {
+	admin, _ := a.adminRepository.FindOne("account = ?", account)
+	if admin == nil {
+		return "", fault.ErrNotFound
+	}
+	if !admin.PasswordMatching(password) {
+		return "", ErrorPasswordNotMatch
+	}
+	return "", nil
 }
