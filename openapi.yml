@@ -1,0 +1,241 @@
+openapi: 3.0.3
+info:
+  title: Core APIs
+  description: |-
+    universalmacro
+  contact:
+    email: chenyunda218@gmail.com
+  version: 0.0.1
+servers:
+  - url: https://uat.api.universalmacro.com/core
+  - url: https://api.universalmacro.com/core
+tags:
+  - name: Admin
+  - name: Sessions
+paths:
+  /admins/self:
+    get:
+      tags: [Admin]
+      description: Get admin self info
+      operationId: GetAdminSelf
+      responses:
+        '200':
+          description: 'Get Self info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+  /admins:
+    post:
+      tags: [Admin]
+      description: Create user account
+      operationId: CreateAdmin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateAdminRequest'
+      responses:
+        '201':
+          description: 'Admin created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
+    get:
+      tags: [Admin]
+      description: List Admins
+      operationId: ListAdmin
+      parameters:
+        - $ref: '#/components/parameters/Ordering'
+        - $ref: '#/components/parameters/IndexParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: 'List Admin'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminList'
+  /sessions:
+    post:
+      tags: [Sessions]
+      description: Create Login session
+      operationId: CreateSession
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSessionRequest'
+      responses:
+        '201':
+          description: 'Session created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Session'
+  
+components:
+  schemas:
+    PhoneNumber:
+      type: object
+      required:
+        - countryCode
+        - number
+      properties:
+        countryCode:
+          type: string
+        number:
+          type: string
+    Admin:
+      type: object
+      required:
+        - id
+        - account
+      properties:
+        id:
+          type: string
+        account:
+          type: string
+        PhoneNumber:
+          $ref: '#/components/schemas/PhoneNumber'
+        role:
+          $ref: '#/components/schemas/Role'
+    CreateSessionRequest:
+      description: 'Login request'
+      type: object
+      properties:
+        account:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+    CreateAdminRequest:
+      description: 'Create admin request schema'
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        verificationCode:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+    CreateAccountRequest:
+      description: 'Create account request schema'
+      required:
+        - email
+        - password
+      type: object
+      properties:
+        verificationCode:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+        role:
+          $ref: '#/components/schemas/Role'
+    Role:
+      type: string
+      enum: [ROOT, ADMIN, USER, SUB_ACCOUNT]
+    UpdatePasswordRequest:
+      type: object
+      required:
+        - password
+        - newPassword
+      properties:
+        password:
+          type: string
+        newPassword:
+          type: string
+    AdminList:
+      description: 'Account list'
+      type: object
+      required:
+        - data
+        - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Admin'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
+    Session:
+      type: object
+      required:
+        - token
+      properties:
+        token:
+          type: string
+    Ordering:
+      description: 'Ordering'
+      type: string
+      enum: [ASCENDING, DESCENDING]
+    Pagination:
+      description: 'Pagination'
+      type: object
+      required:
+        - index
+        - limit
+        - total
+      properties:
+        index:
+          type: integer
+          format: int64
+          description: 'Current page'
+        limit:
+          type: integer
+          format: int64
+          description: 'Amount per page'
+        total:
+          type: integer
+          format: int64
+          description: 'Total page'
+  parameters:
+    Ordering:
+      name: ordering
+      description: 'ASCENDING or DESCENDING'
+      in: query
+      schema:
+        $ref: '#/components/schemas/Ordering'
+    IndexParam:
+      name: index
+      in: query
+      description: 'Current page index'
+      schema:
+        type: integer
+        minimum: 0
+        default: 0
+    LimitParam:
+      name: limit
+      in: query
+      description: 'Total pages'
+      schema:
+        type: integer
+        minimum: 1
+        default: 10
+    ID:
+      in: path
+      name: id
+      schema:
+        type: string
+      required: true
+    StartAt:
+      in: query
+      name: startAt
+      schema:
+        type: integer
+        format: int64
+    EndAt:
+      in: query
+      name: endAt
+      schema:
+        type: integer
+        format: int64
