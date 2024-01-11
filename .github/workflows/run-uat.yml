@@ -1,6 +1,8 @@
 name: Run UAT docker
 
 on:
+  workflow_run:
+    workflows: ["Build container"]
   workflow_dispatch:
 jobs:
   UAT:
