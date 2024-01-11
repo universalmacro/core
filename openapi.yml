@@ -12,6 +12,7 @@ servers:
 tags:
   - name: Admin
   - name: Sessions
+  - name: Node
 paths:
   /admins/self:
     get:
@@ -74,9 +75,113 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Session'
-  
+  /nodes:
+    post:
+      tags: [Node]
+      description: Create node
+      operationId: CreateNode
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateNodeRequest'
+      responses:
+        '201':
+          description: 'Node created'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+    get:
+      tags: [Node]
+      description: List Nodes
+      operationId: ListNode
+      parameters:
+        - $ref: '#/components/parameters/Ordering'
+        - $ref: '#/components/parameters/IndexParam'
+        - $ref: '#/components/parameters/LimitParam'
+      responses:
+        '200':
+          description: 'List Node'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AdminList'
 components:
   schemas:
+    CreateNodeRequest:
+      type: object
+      properties:
+        name:
+          type: string
+        description:
+          type: string
+    Node:
+      type: object
+      required:
+        - id
+        - name
+        - description
+        - status
+        - createdAt
+        - updatedAt
+      properties:
+        id:
+          type: string
+        name:
+          type: string
+        description:
+          type: string
+        status:
+          type: string
+        createdAt:
+          type: integer
+          format: int64
+        updatedAt:
+          type: integer
+          format: int64
+    NodeConfig:
+      type: object
+      properties:
+        database:
+          $ref: '#/components/schemas/DBConfig'
+        redis:
+          $ref: '#/components/schemas/RedisConfig'
+    RedisConfig:
+      type: object
+      required:
+        - host
+        - port
+        - password
+      properties:
+        host:
+          type: string
+        port:
+          type: string
+        password:
+          type: string
+    DBConfig:
+      type: object
+      required:
+        - host
+        - port
+        - username
+        - password
+        - database
+      properties:
+        host:
+          type: string
+        port:
+          type: string
+        username:
+          type: string
+        password:
+          type: string
+        database:
+          $ref: '#/components/schemas/DatabaseType'
+    DatabaseType:
+      type: string
+      enum: [MYSQL, POSTGRES]
     PhoneNumber:
       type: object
       required:

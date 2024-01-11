@@ -16,10 +16,15 @@ var adminRepository = singleton.NewSingleton[AdminRepository](func() *AdminRepos
 	}
 }, singleton.Eager)
 
-func GetAccounrRepository() *AdminRepository {
+func GetAdminRepository() *AdminRepository {
 	return adminRepository.Get()
 }
 
 type AdminRepository struct {
 	*dao.Repository[entities.Admin]
 }
+
+// func (a *AdminRepository) GetByAccount(id uint) *entities.Admin {
+
+// 	return admin
+// }
