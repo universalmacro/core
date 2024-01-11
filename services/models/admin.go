@@ -3,10 +3,10 @@ package models
 import "github.com/universalmacro/core/dao/entities"
 
 type Admin struct {
-	entity entities.Admin
+	entity *entities.Admin
 }
 
-func NewAdmin(entity entities.Admin) *Admin {
+func NewAdmin(entity *entities.Admin) *Admin {
 	return &Admin{entity: entity}
 }
 
