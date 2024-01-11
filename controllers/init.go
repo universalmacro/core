@@ -12,7 +12,8 @@ var router = gin.Default()
 var version = "0.0.2"
 
 func Init(addr ...string) {
-	var adminController = newAdminController()
+	// var adminController = newAdminController()
+	var sessionsControllers = newSessionsController()
 	router.Use(server.CorsMiddleware())
 	server.MetricsMiddleware(router)
 	router.GET("/version", func(ctx *gin.Context) {
@@ -20,6 +21,6 @@ func Init(addr ...string) {
 			"version": version,
 		})
 	})
-	router.POST("/sessions", adminController.CreateSession)
+	router.POST("/sessions", sessionsControllers.CreateSession)
 	router.Run(addr...)
 }
