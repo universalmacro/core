@@ -14,7 +14,7 @@ import (
 
 var router = gin.Default()
 
-var version = "0.0.2"
+var VERSION = "0.0.2"
 
 type Headers struct {
 	Authorization string
@@ -41,7 +41,7 @@ func Init(addr ...string) {
 	server.MetricsMiddleware(router)
 	router.GET("/version", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
-			"version": version,
+			"version": VERSION,
 		})
 	})
 	// Session

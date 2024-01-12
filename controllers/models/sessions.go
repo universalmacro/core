@@ -14,3 +14,15 @@ type CreateAdminRequest struct {
 	Password string `json:"password" binding:"required"`
 	Role     string `json:"role" binding:"required"`
 }
+
+type Admin struct {
+	ID          string      `json:"id"`
+	Account     string      `json:"account"`
+	PhoneNumber PhoneNumber `json:"phoneNumber"`
+	Role        string      `json:"role"`
+}
+
+type PhoneNumber struct {
+	CountryCode string `json:"countryCode"`
+	Number      string `json:"number"`
+}

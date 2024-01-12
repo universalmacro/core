@@ -30,5 +30,5 @@ func (a *AdminController) CreateAdmin(ctx *gin.Context) {
 		fault.GinHandler(ctx, err)
 		return
 	}
-	ctx.JSON(http.StatusCreated, admin)
+	ctx.JSON(http.StatusCreated, models.AdminConvertor(*admin))
 }
