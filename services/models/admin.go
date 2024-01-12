@@ -17,3 +17,7 @@ func (a *Admin) PasswordMatching(password string) bool {
 func (a *Admin) SetPassword(password string) (string, []byte) {
 	return a.entity.SetPassword(password)
 }
+
+func (a *Admin) Role() string {
+	return a.entity.Role
+}

@@ -207,6 +207,19 @@ components:
           $ref: '#/components/schemas/PhoneNumber'
         role:
           $ref: '#/components/schemas/Role'
+    AdminList:
+      description: 'Account list'
+      type: object
+      required:
+        - data
+        - pagination
+      properties:
+        data:
+          type: array
+          items:
+            $ref: '#/components/schemas/Admin'
+        pagination:
+          $ref: '#/components/schemas/Pagination'
     CreateSessionRequest:
       description: 'Login request'
       type: object
@@ -220,28 +233,11 @@ components:
     CreateAdminRequest:
       description: 'Create admin request schema'
       required:
-        - email
+        - account
         - password
       type: object
       properties:
-        verificationCode:
-          type: string
-        email:
-          type: string
-        password:
-          type: string
-        role:
-          $ref: '#/components/schemas/Role'
-    CreateAccountRequest:
-      description: 'Create account request schema'
-      required:
-        - email
-        - password
-      type: object
-      properties:
-        verificationCode:
-          type: string
-        email:
+        account:
           type: string
         password:
           type: string
@@ -260,19 +256,6 @@ components:
           type: string
         newPassword:
           type: string
-    AdminList:
-      description: 'Account list'
-      type: object
-      required:
-        - data
-        - pagination
-      properties:
-        data:
-          type: array
-          items:
-            $ref: '#/components/schemas/Admin'
-        pagination:
-          $ref: '#/components/schemas/Pagination'
     Session:
       type: object
       required:

@@ -56,6 +56,21 @@ func (a *AdminService) CreateSession(account, password string) (string, error) {
 	return auth.SignJwt(claims)
 }
 
+var ErrorAccountExist = errors.New("account exist")
+
+func (a *AdminService) CreateAdmin(account, password, role string) (*models.Admin, error) {
+	admin := &entities.Admin{
+		Account: account,
+		Role:    role,
+	}
+	admin.SetPassword(password)
+	admin, ctx := a.adminRepository.Create(admin)
+	if ctx.RowsAffected == 0 {
+		return nil, ErrorAccountExist
+	}
+	return models.NewAdmin(admin), nil
+}
+
 func (a *AdminService) GetAdminById(id uint) *models.Admin {
 	admin, _ := a.adminRepository.GetById(id)
 	if admin == nil {

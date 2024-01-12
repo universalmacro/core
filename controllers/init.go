@@ -21,7 +21,7 @@ type Headers struct {
 }
 
 func Init(addr ...string) {
-	// var adminController = newAdminController()
+	var adminController = newAdminController()
 	var adminService = services.GetAdminService()
 	var sessionsControllers = newSessionsController()
 	router.Use(server.CorsMiddleware())
@@ -44,11 +44,14 @@ func Init(addr ...string) {
 			"version": version,
 		})
 	})
+	// Session
 	router.POST("/sessions", sessionsControllers.CreateSession)
 	router.GET("/test", func(ctx *gin.Context) {
 		admin := getAccount(ctx)
 		fmt.Println(admin)
 	})
+	// Admin
+	router.POST("/admins", adminController.CreateAdmin)
 	router.Run(addr...)
 }
 
