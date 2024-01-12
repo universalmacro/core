@@ -16,10 +16,10 @@ type CreateAdminRequest struct {
 }
 
 type Admin struct {
-	ID          string      `json:"id"`
-	Account     string      `json:"account"`
-	PhoneNumber PhoneNumber `json:"phoneNumber"`
-	Role        string      `json:"role"`
+	ID          string       `json:"id"`
+	Account     string       `json:"account"`
+	PhoneNumber *PhoneNumber `json:"phoneNumber"`
+	Role        string       `json:"role"`
 }
 
 type PhoneNumber struct {

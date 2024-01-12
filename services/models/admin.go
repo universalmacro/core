@@ -18,8 +18,11 @@ func (a *Admin) Account() string {
 	return a.entity.Account
 }
 
-func (a *Admin) PhoneNumber() PhoneNumber {
-	return PhoneNumber{
+func (a *Admin) PhoneNumber() *PhoneNumber {
+	if a.entity.PhoneNumber == nil {
+		return nil
+	}
+	return &PhoneNumber{
 		CountryCode: a.entity.CountryCode,
 		Number:      a.entity.Number,
 	}

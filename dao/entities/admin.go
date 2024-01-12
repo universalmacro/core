@@ -10,7 +10,7 @@ import (
 type Admin struct {
 	gorm.Model
 	Account string `gorm:"type:varchar(64);uniqueIndex"`
-	dao.PhoneNumber
+	*dao.PhoneNumber
 	auth.Password
 	Role string `gorm:"type:varchar(20)"`
 }

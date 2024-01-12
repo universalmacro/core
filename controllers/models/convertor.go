@@ -14,8 +14,11 @@ func AdminConvertor(admin models.Admin) Admin {
 	}
 }
 
-func PhoneNumberConvertor(phoneNumber models.PhoneNumber) PhoneNumber {
-	return PhoneNumber{
+func PhoneNumberConvertor(phoneNumber *models.PhoneNumber) *PhoneNumber {
+	if phoneNumber == nil {
+		return nil
+	}
+	return &PhoneNumber{
 		CountryCode: phoneNumber.CountryCode,
 		Number:      phoneNumber.Number,
 	}
