@@ -2,11 +2,14 @@ package services
 
 import (
 	"errors"
+	"time"
 
+	"github.com/golang-jwt/jwt"
 	"github.com/universalmacro/common/auth"
 	"github.com/universalmacro/common/config"
 	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/common/singleton"
+	"github.com/universalmacro/common/snowflake"
 	"github.com/universalmacro/common/utils"
 	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/dao/repositories"
@@ -44,6 +47,8 @@ type AdminService struct {
 
 var ErrorPasswordNotMatch = errors.New("password not match")
 
+var sessionIdGenerator = snowflake.NewIdGenertor(0)
+
 func (a *AdminService) CreateSession(account, password string) (string, error) {
 	admin, _ := a.adminRepository.FindOne("account = ?", account)
 	if admin == nil {
@@ -52,7 +57,8 @@ func (a *AdminService) CreateSession(account, password string) (string, error) {
 	if !admin.PasswordMatching(password) {
 		return "", ErrorPasswordNotMatch
 	}
-	claims := Claims{ID: utils.UintToString(admin.ID)}
+	expired := time.Now().Add(time.Hour * 24 * 7).Unix()
+	claims := Claims{ID: sessionIdGenerator.String(), AdminId: utils.UintToString(admin.ID), StandardClaims: jwt.StandardClaims{ExpiresAt: expired}}
 	return auth.SignJwt(claims)
 }
 
@@ -84,7 +90,7 @@ func (a *AdminService) VerifyToken(token string) (*models.Admin, error) {
 	if err != nil {
 		return nil, err
 	}
-	admin := a.GetAdminById(utils.StringToUint(claims["id"].(string)))
+	admin := a.GetAdminById(utils.StringToUint(claims["adminId"].(string)))
 	if admin == nil {
 		return nil, fault.ErrNotFound
 	}

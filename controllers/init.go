@@ -31,8 +31,8 @@ func Init(addr ...string) {
 		authorization := headers.Authorization
 		splited := strings.Split(authorization, " ")
 		if authorization != "" && len(splited) == 2 {
-			admin, _ := adminService.VerifyToken(splited[1])
-			if admin != nil {
+			admin, err := adminService.VerifyToken(splited[1])
+			if admin != nil && err == nil {
 				ctx.Set("admin", admin)
 			}
 		}
@@ -56,15 +56,15 @@ func Init(addr ...string) {
 }
 
 func getAccount(ctx *gin.Context) *models.Admin {
-	adminInterface, ok := ctx.Get("account")
+	adminInterface, ok := ctx.Get("admin")
 	if !ok {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
 		return nil
 	}
-	admin, ok := adminInterface.(models.Admin)
+	admin, ok := adminInterface.(*models.Admin)
 	if !ok {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
 		return nil
 	}
-	return &admin
+	return admin
 }

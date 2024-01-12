@@ -226,8 +226,6 @@ components:
       properties:
         account:
           type: string
-        email:
-          type: string
         password:
           type: string
     CreateAdminRequest:
