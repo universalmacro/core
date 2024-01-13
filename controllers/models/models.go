@@ -26,3 +26,8 @@ type PhoneNumber struct {
 	CountryCode string `json:"countryCode"`
 	Number      string `json:"number"`
 }
+
+type CreateNodeRequest struct {
+	Name        string `json:"name" binding:"required"`
+	Description string `json:"description"`
+}

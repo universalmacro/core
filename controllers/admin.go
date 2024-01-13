@@ -18,7 +18,7 @@ type AdminController struct {
 }
 
 func (a *AdminController) CreateAdmin(ctx *gin.Context) {
-	account := getAccount(ctx)
+	account := getAdmin(ctx)
 	if account.Role() != "ROOT" {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return

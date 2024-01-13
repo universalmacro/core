@@ -123,7 +123,6 @@ components:
         - id
         - name
         - description
-        - status
         - createdAt
         - updatedAt
       properties:
@@ -132,8 +131,6 @@ components:
         name:
           type: string
         description:
-          type: string
-        status:
           type: string
         createdAt:
           type: integer
@@ -243,7 +240,7 @@ components:
           $ref: '#/components/schemas/Role'
     Role:
       type: string
-      enum: [ROOT, ADMIN, USER, SUB_ACCOUNT]
+      enum: [ROOT, ADMIN]
     UpdatePasswordRequest:
       type: object
       required:

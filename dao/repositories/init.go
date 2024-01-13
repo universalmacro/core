@@ -7,7 +7,7 @@ import (
 )
 
 func init() {
-	dao.GetDBInstance().AutoMigrate(&entities.Admin{})
+	dao.GetDBInstance().AutoMigrate(&entities.Admin{}, &entities.Node{}, &entities.NodeConfig{})
 }
 
 var adminRepository = singleton.NewSingleton[AdminRepository](func() *AdminRepository {

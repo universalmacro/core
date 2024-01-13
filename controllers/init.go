@@ -24,6 +24,7 @@ func Init(addr ...string) {
 	var adminController = newAdminController()
 	var adminService = services.GetAdminService()
 	var sessionsControllers = newSessionsController()
+	var nodeController = newNodeController()
 	router.Use(server.CorsMiddleware())
 	router.Use(func(ctx *gin.Context) {
 		var headers Headers
@@ -47,15 +48,18 @@ func Init(addr ...string) {
 	// Session
 	router.POST("/sessions", sessionsControllers.CreateSession)
 	router.GET("/test", func(ctx *gin.Context) {
-		admin := getAccount(ctx)
+		admin := getAdmin(ctx)
 		fmt.Println(admin)
 	})
 	// Admin
 	router.POST("/admins", adminController.CreateAdmin)
+
+	// Node
+	router.POST("/nodes", nodeController.CreateNode)
 	router.Run(addr...)
 }
 
-func getAccount(ctx *gin.Context) *models.Admin {
+func getAdmin(ctx *gin.Context) *models.Admin {
 	adminInterface, ok := ctx.Get("admin")
 	if !ok {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
