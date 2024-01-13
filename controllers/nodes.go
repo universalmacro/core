@@ -1,6 +1,8 @@
 package controllers
 
 import (
+	"fmt"
+
 	"github.com/gin-gonic/gin"
 	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/core/controllers/models"
@@ -25,4 +27,6 @@ func (c *NodeController) CreateNode(ctx *gin.Context) {
 	}
 	var createNodeRequest models.CreateNodeRequest
 	ctx.ShouldBindJSON(&createNodeRequest)
+	node := c.NodeService.CreateNode(createNodeRequest.Name, createNodeRequest.Description)
+	fmt.Println(node)
 }

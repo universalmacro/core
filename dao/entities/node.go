@@ -14,7 +14,7 @@ type Node struct {
 	gorm.Model
 	Name        string `gorm:"type:varchar(64)"`
 	Description string `gorm:"type:varchar(200)"`
-	NodeConfig  NodeConfig
+	Config      NodeConfig
 }
 
 var nodeIdGenerator = snowflake.NewIdGenertor(0)
@@ -26,10 +26,10 @@ func (a *Node) BeforeCreate(tx *gorm.DB) (err error) {
 
 type NodeConfig struct {
 	gorm.Model
-	NodeID      uint
-	SecretKey   string       `gorm:"type:varchar(64)"`
-	RedisConfig *RedisConfig `gorm:"type:json"`
-	DBConfig    *DBConfig    `gorm:"type:json"`
+	NodeID    uint
+	SecretKey string       `gorm:"type:varchar(64)"`
+	Database  *RedisConfig `gorm:"type:json"`
+	Redis     *DBConfig    `gorm:"type:json"`
 }
 
 type RedisConfig struct {

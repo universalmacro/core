@@ -31,3 +31,29 @@ type CreateNodeRequest struct {
 	Name        string `json:"name" binding:"required"`
 	Description string `json:"description"`
 }
+
+type Node struct {
+	ID          string     `json:"id"`
+	Name        string     `json:"name"`
+	Description string     `json:"description"`
+	Config      NodeConfig `json:"config"`
+}
+
+type NodeConfig struct {
+	DBConfig    *DBConfig    `json:"dbConfig"`
+	RedisConfig *RedisConfig `json:"redisConfig"`
+}
+
+type DBConfig struct {
+	Host     string `json:"host"`
+	Port     string `json:"port"`
+	Username string `json:"username"`
+	Password string `json:"password"`
+	Database string `json:"database"`
+}
+
+type RedisConfig struct {
+	Host     string `json:"host"`
+	Port     string `json:"port"`
+	Password string `json:"password"`
+}
