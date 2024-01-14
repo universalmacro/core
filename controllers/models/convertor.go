@@ -23,3 +23,16 @@ func PhoneNumberConvertor(phoneNumber *models.PhoneNumber) *PhoneNumber {
 		Number:      phoneNumber.Number,
 	}
 }
+
+func NodeConvertor(node *models.Node) *Node {
+	if node == nil {
+		return nil
+	}
+	return &Node{
+		ID:          utils.UintToString(node.ID()),
+		Name:        node.Name(),
+		Description: node.Description(),
+		CreatedAt:   node.CreatedAt().Unix(),
+		UpdatedAt:   node.UpdatedAt().Unix(),
+	}
+}

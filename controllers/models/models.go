@@ -33,10 +33,12 @@ type CreateNodeRequest struct {
 }
 
 type Node struct {
-	ID          string     `json:"id"`
-	Name        string     `json:"name"`
-	Description string     `json:"description"`
-	Config      NodeConfig `json:"config"`
+	ID          string `json:"id"`
+	Name        string `json:"name"`
+	Description string `json:"description"`
+	CreatedAt   int64  `json:"createdAt"`
+	UpdatedAt   int64  `json:"updatedAt"`
+	// Config      NodeConfig `json:"config"`
 }
 
 type NodeConfig struct {
