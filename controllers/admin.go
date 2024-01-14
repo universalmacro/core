@@ -32,3 +32,12 @@ func (a *AdminController) CreateAdmin(ctx *gin.Context) {
 	}
 	ctx.JSON(http.StatusCreated, models.AdminConvertor(*admin))
 }
+
+func (a *AdminController) GetSelf(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	ctx.JSON(http.StatusOK, models.AdminConvertor(*admin))
+}
