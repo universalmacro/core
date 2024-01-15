@@ -1,6 +1,7 @@
 package models
 
 import (
+	"github.com/universalmacro/common/dao"
 	"github.com/universalmacro/common/utils"
 	"github.com/universalmacro/core/services/models"
 )
@@ -35,4 +36,13 @@ func NodeConvertor(node *models.Node) *Node {
 		CreatedAt:   node.CreatedAt().Unix(),
 		UpdatedAt:   node.UpdatedAt().Unix(),
 	}
+}
+
+func AdminListConvertor(admins dao.List[models.Admin]) dao.List[Admin] {
+	var adminList dao.List[Admin]
+	for _, admin := range admins.Items {
+		adminList.Items = append(adminList.Items, AdminConvertor(admin))
+	}
+	adminList.Pagination = admins.Pagination
+	return adminList
 }

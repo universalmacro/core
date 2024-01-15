@@ -7,6 +7,7 @@ import (
 	"github.com/golang-jwt/jwt"
 	"github.com/universalmacro/common/auth"
 	"github.com/universalmacro/common/config"
+	"github.com/universalmacro/common/dao"
 	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/common/singleton"
 	"github.com/universalmacro/common/snowflake"
@@ -66,7 +67,7 @@ var ErrAccountExist = errors.New("account exist")
 var ErrCanNotCreateRoot = errors.New("can not create root")
 var ErrRoleNotExist = errors.New("role not exist")
 
-func (a *AdminService) CreateAdmin(account, password, role string) (*models.Admin, error) {
+func (s *AdminService) CreateAdmin(account, password, role string) (*models.Admin, error) {
 	if role != "ROOT" {
 		return nil, ErrCanNotCreateRoot
 	}
@@ -78,29 +79,39 @@ func (a *AdminService) CreateAdmin(account, password, role string) (*models.Admi
 		Role:    role,
 	}
 	admin.SetPassword(password)
-	admin, ctx := a.adminRepository.Create(admin)
+	admin, ctx := s.adminRepository.Create(admin)
 	if ctx.RowsAffected == 0 {
 		return nil, ErrAccountExist
 	}
 	return models.NewAdmin(admin), nil
 }
 
-func (a *AdminService) GetAdminById(id uint) *models.Admin {
-	admin, _ := a.adminRepository.GetById(id)
+func (s *AdminService) GetAdminById(id uint) *models.Admin {
+	admin, _ := s.adminRepository.GetById(id)
 	if admin == nil {
 		return nil
 	}
 	return models.NewAdmin(admin)
 }
 
-func (a *AdminService) VerifyToken(token string) (*models.Admin, error) {
+func (s *AdminService) VerifyToken(token string) (*models.Admin, error) {
 	claims, err := auth.VerifyJwt(token)
 	if err != nil {
 		return nil, err
 	}
-	admin := a.GetAdminById(utils.StringToUint(claims["adminId"].(string)))
+	admin := s.GetAdminById(utils.StringToUint(claims["adminId"].(string)))
 	if admin == nil {
 		return nil, fault.ErrNotFound
 	}
 	return admin, nil
+}
+
+func (s *AdminService) ListAdmin(index, limit int64) dao.List[models.Admin] {
+	adminList, _ := s.adminRepository.Paginate(index, limit)
+	admins := make([]models.Admin, 0)
+	for _, admin := range adminList.Items {
+		a := models.NewAdmin(&admin)
+		admins = append(admins, *a)
+	}
+	return dao.List[models.Admin]{Items: admins, Pagination: adminList.Pagination}
 }

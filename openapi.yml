@@ -36,7 +36,6 @@ paths:
       description: List Admins
       operationId: ListAdmin
       parameters:
-        - $ref: '#/components/parameters/Ordering'
         - $ref: '#/components/parameters/IndexParam'
         - $ref: '#/components/parameters/LimitParam'
       responses:
@@ -208,10 +207,10 @@ components:
       description: 'Account list'
       type: object
       required:
-        - data
+        - items
         - pagination
       properties:
-        data:
+        items:
           type: array
           items:
             $ref: '#/components/schemas/Admin'

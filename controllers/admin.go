@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/universalmacro/common/fault"
+	"github.com/universalmacro/common/utils"
 	"github.com/universalmacro/core/controllers/models"
 	"github.com/universalmacro/core/services"
 )
@@ -40,4 +41,16 @@ func (a *AdminController) GetSelf(ctx *gin.Context) {
 		return
 	}
 	ctx.JSON(http.StatusOK, models.AdminConvertor(*admin))
+}
+
+func (c *AdminController) ListAdmin(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	index := ctx.Query("index")
+	limit := ctx.Query("limit")
+	adminList := c.adminService.ListAdmin(int64(utils.StringToUint(index)), int64(utils.StringToUint(limit)))
+	ctx.JSON(http.StatusOK, models.AdminListConvertor(adminList))
 }
