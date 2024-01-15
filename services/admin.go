@@ -68,6 +68,9 @@ var ErrCanNotCreateRoot = errors.New("can not create root")
 var ErrRoleNotExist = errors.New("role not exist")
 
 func (s *AdminService) CreateAdmin(account, password, role string) (*models.Admin, error) {
+	if role == "" {
+		role = "ADMIN"
+	}
 	if role == "ROOT" {
 		return nil, ErrCanNotCreateRoot
 	}
