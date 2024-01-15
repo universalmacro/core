@@ -1,7 +1,6 @@
 package controllers
 
 import (
-	"fmt"
 	"net/http"
 	"strings"
 
@@ -47,13 +46,11 @@ func Init(addr ...string) {
 	})
 	// Session
 	router.POST("/sessions", sessionsControllers.CreateSession)
-	router.GET("/test", func(ctx *gin.Context) {
-		admin := getAdmin(ctx)
-		fmt.Println(admin)
-	})
+
 	// Admin
 	router.POST("/admins", adminController.CreateAdmin)
 	router.GET("/admins/self", adminController.GetSelf)
+
 	// Node
 	router.POST("/nodes", nodeController.CreateNode)
 	router.Run(addr...)

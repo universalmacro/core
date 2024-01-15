@@ -62,9 +62,17 @@ func (a *AdminService) CreateSession(account, password string) (string, error) {
 	return auth.SignJwt(claims)
 }
 
-var ErrorAccountExist = errors.New("account exist")
+var ErrAccountExist = errors.New("account exist")
+var ErrCanNotCreateRoot = errors.New("can not create root")
+var ErrRoleNotExist = errors.New("role not exist")
 
 func (a *AdminService) CreateAdmin(account, password, role string) (*models.Admin, error) {
+	if role != "ROOT" {
+		return nil, ErrCanNotCreateRoot
+	}
+	if role != "ADMIN" {
+		return nil, ErrRoleNotExist
+	}
 	admin := &entities.Admin{
 		Account: account,
 		Role:    role,
@@ -72,7 +80,7 @@ func (a *AdminService) CreateAdmin(account, password, role string) (*models.Admi
 	admin.SetPassword(password)
 	admin, ctx := a.adminRepository.Create(admin)
 	if ctx.RowsAffected == 0 {
-		return nil, ErrorAccountExist
+		return nil, ErrAccountExist
 	}
 	return models.NewAdmin(admin), nil
 }
