@@ -57,7 +57,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Admin'
-  /admins/self:
+  /self:
     get:
       tags: [Admin]
       description: Get admin self info
