@@ -114,7 +114,7 @@ func (s *AdminService) ListAdmin(index, limit int64) dao.List[models.Admin] {
 		limit = 1
 	}
 	adminList, _ := s.adminRepository.Pagination(index, limit)
-	admins := make([]models.Admin, 0)
+	var admins []models.Admin
 	for _, admin := range adminList.Items {
 		a := models.NewAdmin(&admin)
 		admins = append(admins, *a)
