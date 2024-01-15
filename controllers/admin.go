@@ -66,6 +66,22 @@ func (c *AdminController) ListAdmin(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, models.AdminListConvertor(adminList))
 }
 
+func (c *AdminController) UpdateSelfPassword(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	var updatePasswordRequest models.UpdatePasswordRequest
+	ctx.ShouldBindJSON(&updatePasswordRequest)
+	err := c.adminService.UpdateSelfPassword(utils.UintToString(admin.ID()), updatePasswordRequest.Password)
+	if err != nil {
+		fault.GinHandler(ctx, err)
+		return
+	}
+	ctx.JSON(http.StatusNoContent, gin.H{})
+}
+
 func (c *AdminController) UpdatePassword(ctx *gin.Context) {
 	admin := getAdmin(ctx)
 	if admin == nil {

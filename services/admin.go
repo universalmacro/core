@@ -138,3 +138,15 @@ func (s *AdminService) UpdatePassword(id uint, password string) *models.Admin {
 	s.adminRepository.Update(admin.Entity())
 	return admin
 }
+
+func (s *AdminService) UpdateSelfPassword(id, password string) error {
+	admin := s.GetAdminById(utils.StringToUint(id))
+	if admin == nil {
+		return fault.ErrBadRequest
+	}
+	if !admin.PasswordMatching(password) {
+		return fault.ErrUnauthorized
+	}
+	s.adminRepository.Update(admin.Entity())
+	return nil
+}

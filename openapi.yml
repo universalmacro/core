@@ -90,6 +90,23 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Admin'
+  /admins/self/password:
+    put:
+      tags: [Admin]
+      description: Update admin self password
+      operationId: UpdateAdminSelfPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+      responses:
+        '204':
+          description: 'Update password success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
   /sessions:
     post:
       tags: [Session]
@@ -290,11 +307,10 @@ components:
       type: object
       required:
         - password
-        - newPassword
       properties:
         password:
           type: string
-        newPassword:
+        oldPassword:
           type: string
     Session:
       type: object
