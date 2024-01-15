@@ -20,6 +20,8 @@ type Admin struct {
 	Account     string       `json:"account"`
 	PhoneNumber *PhoneNumber `json:"phoneNumber"`
 	Role        string       `json:"role"`
+	CreatedAt   int64        `json:"createdAt"`
+	UpdatedAt   int64        `json:"updatedAt"`
 }
 
 type PhoneNumber struct {

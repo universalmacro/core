@@ -12,6 +12,8 @@ func AdminConvertor(admin models.Admin) Admin {
 		Account:     admin.Account(),
 		Role:        admin.Role(),
 		PhoneNumber: PhoneNumberConvertor(admin.PhoneNumber()),
+		CreatedAt:   admin.CreatedAt().Unix(),
+		UpdatedAt:   admin.UpdatedAt().Unix(),
 	}
 }
 

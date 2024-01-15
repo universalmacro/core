@@ -1,6 +1,10 @@
 package models
 
-import "github.com/universalmacro/core/dao/entities"
+import (
+	"time"
+
+	"github.com/universalmacro/core/dao/entities"
+)
 
 func NewAdmin(entity *entities.Admin) *Admin {
 	return &Admin{entity: entity}
@@ -38,6 +42,13 @@ func (a *Admin) SetPassword(password string) (string, []byte) {
 
 func (a *Admin) Role() string {
 	return a.entity.Role
+}
+
+func (a *Admin) CreatedAt() time.Time {
+	return a.entity.CreatedAt
+}
+func (a *Admin) UpdatedAt() time.Time {
+	return a.entity.UpdatedAt
 }
 
 type PhoneNumber struct {
