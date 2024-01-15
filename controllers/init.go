@@ -48,6 +48,7 @@ func Init(addr ...string) {
 	router.POST("/sessions", sessionsControllers.CreateSession)
 
 	// Admin
+	router.GET("/admins", adminController.ListAdmin)
 	router.POST("/admins", adminController.CreateAdmin)
 	router.GET("/admins/self", adminController.GetSelf)
 
