@@ -53,3 +53,14 @@ func AdminListConvertor(admins dao.List[models.Admin]) dao.List[Admin] {
 	adminList.Pagination = admins.Pagination
 	return adminList
 }
+
+func NodeListConvertor(nodes dao.List[models.Node]) dao.List[Node] {
+	var nodeList dao.List[Node]
+	var items []Node
+	for _, node := range nodes.Items {
+		items = append(items, *NodeConvertor(&node))
+	}
+	nodeList.Items = items
+	nodeList.Pagination = nodes.Pagination
+	return nodeList
+}

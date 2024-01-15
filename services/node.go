@@ -1,6 +1,7 @@
 package services
 
 import (
+	"github.com/universalmacro/common/dao"
 	"github.com/universalmacro/common/singleton"
 	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/dao/repositories"
@@ -9,7 +10,7 @@ import (
 
 func newNodeService() *NodeService {
 	return &NodeService{
-		adminRepository: repositories.GetNodeRepository(),
+		nodeRepository: repositories.GetNodeRepository(),
 	}
 }
 
@@ -20,12 +21,24 @@ func GetNodeService() *NodeService {
 }
 
 type NodeService struct {
-	adminRepository *repositories.NodeRepository
+	nodeRepository *repositories.NodeRepository
 }
 
 func (s *NodeService) CreateNode(name, description string) *models.Node {
 	entity := &entities.Node{Name: name, Description: description}
-	s.adminRepository.Create(entity)
+	s.nodeRepository.Create(entity)
 	node := models.NewNode(entity)
 	return node
+}
+
+func (s *NodeService) ListNode(index, limit int64) dao.List[models.Node] {
+	if limit == 0 {
+		limit = 1
+	}
+	nodeList, _ := s.nodeRepository.Pagination(index, limit)
+	var nodes []models.Node
+	for index := range nodeList.Items {
+		nodes = append(nodes, *models.NewNode(&nodeList.Items[index]))
+	}
+	return dao.List[models.Node]{Items: nodes, Pagination: nodeList.Pagination}
 }
