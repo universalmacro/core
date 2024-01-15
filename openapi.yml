@@ -11,7 +11,7 @@ servers:
   - url: https://api.universalmacro.com/core
 tags:
   - name: Admin
-  - name: Sessions
+  - name: Session
   - name: Node
 paths:
   /admins:
@@ -45,6 +45,18 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AdminList'
+  /admins/{id}:
+    get:
+      tags: [Admin]
+      description: Get admin info by id
+      operationId: GetAdmin
+      responses:
+        '200':
+          description: 'Get Self info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
   /admins/self:
     get:
       tags: [Admin]
@@ -59,7 +71,7 @@ paths:
                 $ref: '#/components/schemas/Admin'
   /sessions:
     post:
-      tags: [Sessions]
+      tags: [Session]
       description: Create Login session
       operationId: CreateSession
       requestBody:
@@ -96,7 +108,6 @@ paths:
       description: List Nodes
       operationId: ListNode
       parameters:
-        - $ref: '#/components/parameters/Ordering'
         - $ref: '#/components/parameters/IndexParam'
         - $ref: '#/components/parameters/LimitParam'
       responses:

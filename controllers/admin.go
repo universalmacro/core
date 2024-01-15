@@ -43,6 +43,17 @@ func (a *AdminController) GetSelf(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, models.AdminConvertor(*admin))
 }
 
+func (a *AdminController) GetAdmin(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	id := ctx.Param("id")
+	a.adminService.GetAdmin(utils.StringToUint(id))
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	ctx.JSON(http.StatusOK, models.AdminConvertor(*admin))
+}
+
 func (c *AdminController) ListAdmin(ctx *gin.Context) {
 	admin := getAdmin(ctx)
 	if admin == nil {

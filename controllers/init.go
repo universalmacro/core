@@ -51,9 +51,10 @@ func Init(addr ...string) {
 	router.GET("/admins", adminController.ListAdmin)
 	router.POST("/admins", adminController.CreateAdmin)
 	router.GET("/admins/self", adminController.GetSelf)
-
+	router.GET("/admins/:id", adminController.GetAdmin)
 	// Node
 	router.POST("/nodes", nodeController.CreateNode)
+	router.GET("/nodes", nodeController.ListNode)
 	router.Run(addr...)
 }
 

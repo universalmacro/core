@@ -120,3 +120,11 @@ func (s *AdminService) ListAdmin(index, limit int64) dao.List[models.Admin] {
 	}
 	return dao.List[models.Admin]{Items: admins, Pagination: adminList.Pagination}
 }
+
+func (s *AdminService) GetAdmin(id uint) *models.Admin {
+	admin, _ := s.adminRepository.GetById(id)
+	if admin == nil {
+		return nil
+	}
+	return models.NewAdmin(admin)
+}
