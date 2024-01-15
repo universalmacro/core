@@ -45,7 +45,7 @@ func (a *AdminController) GetSelf(ctx *gin.Context) {
 
 func (c *AdminController) ListAdmin(ctx *gin.Context) {
 	admin := getAdmin(ctx)
-	if admin.Role() != "ROOT" {
+	if admin == nil {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return
 	}
