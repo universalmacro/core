@@ -59,6 +59,25 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Admin'
+  /admins/{id}/password:
+    put:
+      tags: [Admin]
+      description: Update admin password
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      operationId: UpdateAdminPassword
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePasswordRequest'
+      responses:
+        '200':
+          description: 'Update password success'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Admin'
   /admins/self:
     get:
       tags: [Admin]

@@ -15,6 +15,10 @@ type CreateAdminRequest struct {
 	Role     string `json:"role" binding:"required"`
 }
 
+type UpdatePasswordRequest struct {
+	Password string `json:"password" binding:"required"`
+}
+
 type Admin struct {
 	ID          string       `json:"id"`
 	Account     string       `json:"account"`

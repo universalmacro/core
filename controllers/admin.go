@@ -20,7 +20,7 @@ type AdminController struct {
 
 func (a *AdminController) CreateAdmin(ctx *gin.Context) {
 	account := getAdmin(ctx)
-	if account.Role() != "ROOT" {
+	if account == nil || account.Role() != "ROOT" {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return
 	}
@@ -64,4 +64,21 @@ func (c *AdminController) ListAdmin(ctx *gin.Context) {
 	limit := ctx.Query("limit")
 	adminList := c.adminService.ListAdmin(int64(utils.StringToUint(index)), int64(utils.StringToUint(limit)))
 	ctx.JSON(http.StatusOK, models.AdminListConvertor(adminList))
+}
+
+func (c *AdminController) UpdatePassword(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	var updatePasswordRequest models.UpdatePasswordRequest
+	ctx.ShouldBindJSON(&updatePasswordRequest)
+	account := c.adminService.UpdatePassword(utils.StringToUint(id), updatePasswordRequest.Password)
+	ctx.JSON(http.StatusOK, models.AdminConvertor(*account))
 }

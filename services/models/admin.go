@@ -32,6 +32,10 @@ func (a *Admin) PhoneNumber() *PhoneNumber {
 	}
 }
 
+func (a *Admin) Entity() *entities.Admin {
+	return a.entity
+}
+
 func (a *Admin) PasswordMatching(password string) bool {
 	return a.entity.PasswordMatching(password)
 }
@@ -49,6 +53,10 @@ func (a *Admin) CreatedAt() time.Time {
 }
 func (a *Admin) UpdatedAt() time.Time {
 	return a.entity.UpdatedAt
+}
+
+func (a *Admin) UpdatePassword(password string) {
+	a.entity.SetPassword(password)
 }
 
 type PhoneNumber struct {

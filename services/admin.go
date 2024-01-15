@@ -128,3 +128,13 @@ func (s *AdminService) GetAdmin(id uint) *models.Admin {
 	}
 	return models.NewAdmin(admin)
 }
+
+func (s *AdminService) UpdatePassword(id uint, password string) *models.Admin {
+	admin := s.GetAdmin(id)
+	if admin == nil {
+		return admin
+	}
+	admin.SetPassword(password)
+	s.adminRepository.Update(admin.Entity())
+	return admin
+}
