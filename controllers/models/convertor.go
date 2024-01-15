@@ -19,6 +19,9 @@ func PhoneNumberConvertor(phoneNumber *models.PhoneNumber) *PhoneNumber {
 	if phoneNumber == nil {
 		return nil
 	}
+	if phoneNumber.CountryCode == "" || phoneNumber.Number == "" {
+		return nil
+	}
 	return &PhoneNumber{
 		CountryCode: phoneNumber.CountryCode,
 		Number:      phoneNumber.Number,
