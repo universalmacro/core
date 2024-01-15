@@ -150,3 +150,8 @@ func (s *AdminService) UpdateSelfPassword(id, password string) error {
 	s.adminRepository.Update(admin.Entity())
 	return nil
 }
+
+func (s *AdminService) DeleteAdmin(id uint) {
+	admin := s.GetAdmin(id)
+	s.adminRepository.Delete(admin.Entity())
+}

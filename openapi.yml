@@ -59,6 +59,15 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Admin'
+    delete:
+      tags:
+        - Admin
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      operationId: DeleteAdmin
+      responses:
+        '204':
+          description: 'Get Self info'
   /admins/{id}/password:
     put:
       tags: [Admin]

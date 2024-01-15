@@ -98,3 +98,18 @@ func (c *AdminController) UpdatePassword(ctx *gin.Context) {
 	account := c.adminService.UpdatePassword(utils.StringToUint(id), updatePasswordRequest.Password)
 	ctx.JSON(http.StatusOK, models.AdminConvertor(*account))
 }
+
+func (c *AdminController) DeleteAdmin(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	c.adminService.DeleteAdmin(utils.StringToUint(id))
+	ctx.JSON(http.StatusNoContent, gin.H{})
+}
