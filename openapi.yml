@@ -49,6 +49,8 @@ paths:
     get:
       tags: [Admin]
       description: Get admin info by id
+      parameters:
+        - $ref: '#/components/parameters/ID'
       operationId: GetAdmin
       responses:
         '200':
@@ -57,7 +59,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/Admin'
-  /self:
+  /admins/self:
     get:
       tags: [Admin]
       description: Get admin self info
