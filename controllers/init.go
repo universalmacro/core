@@ -54,11 +54,13 @@ func Init(addr ...string) {
 	router.GET("/admins/self", adminController.GetSelf)
 	router.PUT("/admins/self/password", adminController.UpdateSelfPassword)
 	router.PUT("/admins/:id/password", adminController.UpdatePassword)
+	router.DELETE("/admins/:id", adminController.DeleteAdmin)
 	router.GET("/admins/:id", adminController.GetAdmin)
 
 	// Node
 	router.POST("/nodes", nodeController.CreateNode)
 	router.GET("/nodes", nodeController.ListNode)
+	// router.DELETE("/nodes/:id", nodeController.DeleteNode)
 	router.GET("/nodes/:id", nodeController.GetNode)
 	router.Run(addr...)
 }

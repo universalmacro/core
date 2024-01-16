@@ -12,9 +12,9 @@ import (
 
 type Node struct {
 	gorm.Model
+	SecurityKey string `gorm:"type:varchar(64);uniqueIndex"`
 	Name        string `gorm:"type:varchar(64)"`
 	Description string `gorm:"type:varchar(200)"`
-	SecurityKey string `gorm:"type:varchar(64)"`
 	Config      NodeConfig
 }
 

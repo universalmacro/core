@@ -164,6 +164,20 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NodeList'
+  /nodes/self:
+    get:
+      tags: [Node]
+      description: Get node self by securityKey
+      operationId: GetNodeSelf
+      security:
+        - ApiKeyAuth: []
+      responses:
+        '200':
+          description: 'Get Node info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
   /nodes/{id}:
     get:
       tags: [Node]
@@ -243,6 +257,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/DBConfig'
 components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: X-API-KEY
   schemas:
     CreateNodeRequest:
       type: object
