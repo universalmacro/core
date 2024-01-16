@@ -32,6 +32,11 @@ func (s *NodeService) CreateNode(name, description string) *models.Node {
 	return node
 }
 
+func (s *NodeService) GetNode(id uint) *models.Node {
+	entity, _ := s.nodeRepository.GetById(id)
+	return models.NewNode(entity)
+}
+
 func (s *NodeService) ListNode(index, limit int64) dao.List[models.Node] {
 	if limit == 0 {
 		limit = 1

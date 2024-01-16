@@ -164,6 +164,84 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/NodeList'
+  /nodes/{id}:
+    get:
+      tags: [Node]
+      description: Get node info by id
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      operationId: GetNode
+      responses:
+        '200':
+          description: 'Get Node info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Node'
+  /nodes/{id}/config/redis:
+    get:
+      tags: [Node]
+      description: Get node info by id
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      operationId: GetNodeRedisConfig
+      responses:
+        '200':
+          description: 'Get Node info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedisConfig'
+    put:
+      tags: [Node]
+      description: Get node info by id
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      operationId: UpdateNodeRedisConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RedisConfig'
+      responses:
+        '200':
+          description: 'Get Node info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedisConfig'
+  /nodes/{id}/config/database:
+    get:
+      tags: [Node]
+      description: Get node info by id
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      operationId: GetNodeDatabaseConfig
+      responses:
+        '200':
+          description: 'Get Node info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DBConfig'
+    put:
+      tags: [Node]
+      description: Get node info by id
+      parameters:
+        - $ref: '#/components/parameters/ID'
+      operationId: UpdateNodeDatabaseConfig
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/DBConfig'
+      responses:
+        '200':
+          description: 'Get Node info'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DBConfig'
 components:
   schemas:
     CreateNodeRequest:
@@ -216,10 +294,6 @@ components:
           $ref: '#/components/schemas/RedisConfig'
     RedisConfig:
       type: object
-      required:
-        - host
-        - port
-        - password
       properties:
         host:
           type: string

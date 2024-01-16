@@ -32,6 +32,17 @@ func (c *NodeController) CreateNode(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, models.NodeConvertor(node))
 }
 
+func (c *NodeController) GetNode(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	ctx.JSON(http.StatusOK, models.NodeConvertor(node))
+}
+
 func (c *NodeController) ListNode(ctx *gin.Context) {
 	admin := getAdmin(ctx)
 	if admin == nil {
