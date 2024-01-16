@@ -74,7 +74,14 @@ func (c *AdminController) UpdateSelfPassword(ctx *gin.Context) {
 	}
 	var updatePasswordRequest models.UpdatePasswordRequest
 	ctx.ShouldBindJSON(&updatePasswordRequest)
-	err := c.adminService.UpdateSelfPassword(utils.UintToString(admin.ID()), updatePasswordRequest.Password)
+	if updatePasswordRequest.OldPassword == nil {
+		ctx.JSON(http.StatusUnauthorized, gin.H{
+			"code":    http.StatusUnauthorized,
+			"message": services.ErrPasswordNotMatch,
+		})
+		return
+	}
+	err := c.adminService.UpdateSelfPassword(utils.UintToString(admin.ID()), *updatePasswordRequest.OldPassword, updatePasswordRequest.Password)
 	if err != nil {
 		fault.GinHandler(ctx, err)
 		return
