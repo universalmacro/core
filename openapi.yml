@@ -190,13 +190,14 @@ components:
       required:
         - id
         - name
-        - description
         - createdAt
         - updatedAt
       properties:
         id:
           type: string
         name:
+          type: string
+        securityKey:
           type: string
         description:
           type: string

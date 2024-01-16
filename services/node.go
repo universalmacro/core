@@ -26,8 +26,9 @@ type NodeService struct {
 
 func (s *NodeService) CreateNode(name, description string) *models.Node {
 	entity := &entities.Node{Name: name, Description: description}
-	s.nodeRepository.Create(entity)
 	node := models.NewNode(entity)
+	node.UpdateSecurityKey()
+	s.nodeRepository.Create(node.Entity())
 	return node
 }
 

@@ -12,8 +12,7 @@ import (
 )
 
 var router = gin.Default()
-
-var VERSION = "0.0.2"
+var VERSION = "0.0.3"
 
 type Headers struct {
 	Authorization string
@@ -24,7 +23,9 @@ func Init(addr ...string) {
 	var adminService = services.GetAdminService()
 	var sessionsControllers = newSessionsController()
 	var nodeController = newNodeController()
+	// Cors
 	router.Use(server.CorsMiddleware())
+	// Auth
 	router.Use(func(ctx *gin.Context) {
 		var headers Headers
 		ctx.ShouldBindHeader(&headers)
@@ -54,6 +55,7 @@ func Init(addr ...string) {
 	router.PUT("/admins/self/password", adminController.UpdateSelfPassword)
 	router.PUT("/admins/:id/password", adminController.UpdatePassword)
 	router.GET("/admins/:id", adminController.GetAdmin)
+
 	// Node
 	router.POST("/nodes", nodeController.CreateNode)
 	router.GET("/nodes", nodeController.ListNode)

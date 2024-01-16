@@ -37,6 +37,7 @@ func NodeConvertor(node *models.Node) *Node {
 	return &Node{
 		ID:          utils.UintToString(node.ID()),
 		Name:        node.Name(),
+		SecurityKey: node.SecurityKey(),
 		Description: node.Description(),
 		CreatedAt:   node.CreatedAt().Unix(),
 		UpdatedAt:   node.UpdatedAt().Unix(),

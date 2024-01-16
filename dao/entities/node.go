@@ -14,6 +14,7 @@ type Node struct {
 	gorm.Model
 	Name        string `gorm:"type:varchar(64)"`
 	Description string `gorm:"type:varchar(200)"`
+	SecurityKey string `gorm:"type:varchar(64)"`
 	Config      NodeConfig
 }
 
