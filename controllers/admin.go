@@ -110,6 +110,10 @@ func (c *AdminController) DeleteAdmin(ctx *gin.Context) {
 		return
 	}
 	id := ctx.Param("id")
-	c.adminService.DeleteAdmin(utils.StringToUint(id))
+	err := c.adminService.DeleteAdmin(utils.StringToUint(id))
+	if err != nil {
+		fault.GinHandler(ctx, err)
+		return
+	}
 	ctx.JSON(http.StatusNoContent, gin.H{})
 }

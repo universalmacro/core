@@ -151,7 +151,13 @@ func (s *AdminService) UpdateSelfPassword(id, password string) error {
 	return nil
 }
 
-func (s *AdminService) DeleteAdmin(id uint) {
+var ErrCanNotDeleteRoot = errors.New("can not delete root")
+
+func (s *AdminService) DeleteAdmin(id uint) error {
 	admin := s.GetAdmin(id)
+	if admin.Role() == "ROOT" {
+		return ErrCanNotDeleteRoot
+	}
 	s.adminRepository.Delete(admin.Entity())
+	return nil
 }
