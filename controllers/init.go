@@ -64,7 +64,7 @@ func Init(addr ...string) {
 	router.PUT("/nodes/:id/config/database", nodeController.UpdateNodeDatabaseConfig)
 	router.GET("/nodes/:id/config/redis", nodeController.GetNodeRedisConfig)
 	router.PUT("/nodes/:id/config/redis", nodeController.UpdateNodeRedisConfig)
-	// router.DELETE("/nodes/:id", nodeController.DeleteNode)
+	router.DELETE("/nodes/:id", nodeController.DeleteNode)
 	router.GET("/nodes/:id", nodeController.GetNode)
 	router.Run(addr...)
 }

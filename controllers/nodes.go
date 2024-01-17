@@ -123,3 +123,14 @@ func (c *NodeController) UpdateNodeRedisConfig(ctx *gin.Context) {
 	node.UpdateRedisConfig(&redisConfig)
 	ctx.JSON(http.StatusOK, redisConfig)
 }
+
+func (c *NodeController) DeleteNode(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil || admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	c.NodeService.DeleteNode(utils.StringToUint(id))
+	ctx.JSON(http.StatusNoContent, nil)
+}

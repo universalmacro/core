@@ -29,6 +29,7 @@ func (s *NodeService) CreateNode(name, description string) *models.Node {
 	node := models.NewNode(entity)
 	node.UpdateSecurityKey()
 	s.nodeRepository.Create(node.Entity())
+	repositories.GetNodeConfigRepository().Create(&entities.NodeConfig{NodeID: node.ID()})
 	return node
 }
 
@@ -47,4 +48,9 @@ func (s *NodeService) ListNode(index, limit int64) dao.List[models.Node] {
 		nodes = append(nodes, *models.NewNode(&nodeList.Items[index]))
 	}
 	return dao.List[models.Node]{Items: nodes, Pagination: nodeList.Pagination}
+}
+
+func (s *NodeService) DeleteNode(id uint) {
+	node, _ := s.nodeRepository.GetById(id)
+	s.nodeRepository.Delete(node)
 }

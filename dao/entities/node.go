@@ -15,7 +15,6 @@ type Node struct {
 	SecurityKey string `gorm:"type:varchar(64);uniqueIndex"`
 	Name        string `gorm:"type:varchar(64)"`
 	Description string `gorm:"type:varchar(200)"`
-	Config      NodeConfig
 }
 
 var nodeIdGenerator = snowflake.NewIdGenertor(0)
