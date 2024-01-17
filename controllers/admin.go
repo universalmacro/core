@@ -86,7 +86,7 @@ func (c *AdminController) UpdateSelfPassword(ctx *gin.Context) {
 		fault.GinHandler(ctx, err)
 		return
 	}
-	ctx.JSON(http.StatusNoContent, gin.H{})
+	ctx.JSON(http.StatusNoContent, nil)
 }
 
 func (c *AdminController) UpdatePassword(ctx *gin.Context) {
@@ -122,5 +122,5 @@ func (c *AdminController) DeleteAdmin(ctx *gin.Context) {
 		fault.GinHandler(ctx, err)
 		return
 	}
-	ctx.JSON(http.StatusNoContent, gin.H{})
+	ctx.JSON(http.StatusNoContent, nil)
 }
