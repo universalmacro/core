@@ -10,7 +10,8 @@ import (
 
 func newNodeService() *NodeService {
 	return &NodeService{
-		nodeRepository: repositories.GetNodeRepository(),
+		nodeRepository:       repositories.GetNodeRepository(),
+		nodeConfigRepository: repositories.GetNodeConfigRepository(),
 	}
 }
 
@@ -21,7 +22,8 @@ func GetNodeService() *NodeService {
 }
 
 type NodeService struct {
-	nodeRepository *repositories.NodeRepository
+	nodeRepository       *repositories.NodeRepository
+	nodeConfigRepository *repositories.NodeConfigRepository
 }
 
 func (s *NodeService) CreateNode(name, description string) *models.Node {
@@ -52,5 +54,7 @@ func (s *NodeService) ListNode(index, limit int64) dao.List[models.Node] {
 
 func (s *NodeService) DeleteNode(id uint) {
 	node, _ := s.nodeRepository.GetById(id)
+	nodeConfig, _ := s.nodeConfigRepository.FindOne("node_id = ?", id)
+	s.nodeConfigRepository.Delete(nodeConfig)
 	s.nodeRepository.Delete(node)
 }
