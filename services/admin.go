@@ -46,7 +46,7 @@ type AdminService struct {
 	adminRepository *repositories.AdminRepository
 }
 
-var ErrorPasswordNotMatch = errors.New("password not match")
+var ErrPasswordNotMatch = errors.New("password not match")
 
 var sessionIdGenerator = snowflake.NewIdGenertor(0)
 
@@ -56,7 +56,7 @@ func (a *AdminService) CreateSession(account, password string) (string, error) {
 		return "", fault.ErrNotFound
 	}
 	if !admin.PasswordMatching(password) {
-		return "", ErrorPasswordNotMatch
+		return "", ErrPasswordNotMatch
 	}
 	expired := time.Now().Add(time.Hour * 24 * 7).Unix()
 	claims := Claims{ID: sessionIdGenerator.String(), AdminId: utils.UintToString(admin.ID), StandardClaims: jwt.StandardClaims{ExpiresAt: expired}}
@@ -138,8 +138,6 @@ func (s *AdminService) UpdatePassword(id uint, password string) *models.Admin {
 	s.adminRepository.Update(admin.Entity())
 	return admin
 }
-
-var ErrPasswordNotMatch = errors.New("password not match")
 
 func (s *AdminService) UpdateSelfPassword(id, oldPassword, password string) error {
 	admin := s.GetAdminById(utils.StringToUint(id))

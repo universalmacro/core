@@ -60,6 +60,7 @@ func Init(addr ...string) {
 	// Node
 	router.POST("/nodes", nodeController.CreateNode)
 	router.GET("/nodes", nodeController.ListNode)
+	router.GET("/nodes/:id/config/database", nodeController.GetNodeDatabaseConfig)
 	// router.DELETE("/nodes/:id", nodeController.DeleteNode)
 	router.GET("/nodes/:id", nodeController.GetNode)
 	router.Run(addr...)

@@ -19,3 +19,17 @@ func GetNodeRepository() *NodeRepository {
 type NodeRepository struct {
 	*dao.Repository[entities.Node]
 }
+
+type NodeConfigRepository struct {
+	*dao.Repository[entities.NodeConfig]
+}
+
+var nodeConfigRepository = singleton.NewSingleton[NodeConfigRepository](func() *NodeConfigRepository {
+	return &NodeConfigRepository{
+		dao.NewRepository[entities.NodeConfig](),
+	}
+}, singleton.Eager)
+
+func GetNodeConfigRepository() *NodeConfigRepository {
+	return nodeConfigRepository.Get()
+}

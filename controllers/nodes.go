@@ -7,6 +7,7 @@ import (
 	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/common/utils"
 	"github.com/universalmacro/core/controllers/models"
+	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/services"
 )
 
@@ -53,4 +54,38 @@ func (c *NodeController) ListNode(ctx *gin.Context) {
 	limit := ctx.Query("limit")
 	nodeList := c.NodeService.ListNode(int64(utils.StringToUint(index)), int64(utils.StringToUint(limit)))
 	ctx.JSON(http.StatusOK, models.NodeListConvertor(nodeList))
+}
+
+func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	dbConfig := node.GetDatabaseConfig()
+	ctx.JSON(http.StatusOK, dbConfig)
+}
+
+func (c *NodeController) UpdateNodeDatabaseConfig(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	var dbConfig entities.DBConfig
+	ctx.ShouldBindJSON(&dbConfig)
+	node.UpdateDatabaseConfig(&dbConfig)
+	ctx.JSON(http.StatusOK, dbConfig)
 }

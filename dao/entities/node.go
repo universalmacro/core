@@ -29,8 +29,8 @@ type NodeConfig struct {
 	gorm.Model
 	NodeID    uint
 	SecretKey string       `gorm:"type:varchar(64)"`
-	Database  *RedisConfig `gorm:"type:json"`
-	Redis     *DBConfig    `gorm:"type:json"`
+	Database  *DBConfig    `gorm:"type:json"`
+	Redis     *RedisConfig `gorm:"type:json"`
 }
 
 type RedisConfig struct {
@@ -59,11 +59,11 @@ func (j RedisConfig) Value() (driver.Value, error) {
 }
 
 type DBConfig struct {
-	Host     string `gorm:"type:varchar(64)"`
-	Port     string `gorm:"type:varchar(64)"`
-	Username string `gorm:"type:varchar(64)"`
-	Password string `gorm:"type:varchar(64)"`
-	Database string `gorm:"type:varchar(64)"`
+	Host     string `json:"host" gorm:"type:varchar(64)"`
+	Port     string `json:"port" gorm:"type:varchar(64)"`
+	Username string `json:"username" gorm:"type:varchar(64)"`
+	Password string `json:"password" gorm:"type:varchar(64)"`
+	Database string `json:"database" gorm:"type:varchar(64)"`
 }
 
 func (j *DBConfig) Scan(value interface{}) error {

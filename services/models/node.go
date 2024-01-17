@@ -5,6 +5,7 @@ import (
 
 	"github.com/universalmacro/common/utils/random"
 	"github.com/universalmacro/core/dao/entities"
+	"github.com/universalmacro/core/dao/repositories"
 )
 
 func NewNode(entity *entities.Node) *Node {
@@ -46,4 +47,18 @@ func (n *Node) UpdateSecurityKey() string {
 
 func (n *Node) Entity() *entities.Node {
 	return n.entity
+}
+
+func (n *Node) GetDatabaseConfig() *entities.DBConfig {
+	nodeConfigRepository := repositories.GetNodeConfigRepository()
+	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
+	return nodeConfig.Database
+}
+
+func (n *Node) UpdateDatabaseConfig(dbConfig *entities.DBConfig) *entities.DBConfig {
+	nodeConfigRepository := repositories.GetNodeConfigRepository()
+	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
+	nodeConfig.Database = dbConfig
+	nodeConfigRepository.Update(nodeConfig)
+	return nodeConfig.Database
 }
