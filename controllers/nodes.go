@@ -68,6 +68,10 @@ func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
 	}
 	id := ctx.Param("id")
 	node := c.NodeService.GetNode(utils.StringToUint(id))
+	if node == nil {
+		fault.GinHandler(ctx, fault.ErrNotFound)
+		return
+	}
 	dbConfig := node.GetDatabaseConfig()
 	ctx.JSON(http.StatusOK, dbConfig)
 }
@@ -102,6 +106,10 @@ func (c *NodeController) GetNodeRedisConfig(ctx *gin.Context) {
 	}
 	id := ctx.Param("id")
 	node := c.NodeService.GetNode(utils.StringToUint(id))
+	if node == nil {
+		fault.GinHandler(ctx, fault.ErrNotFound)
+		return
+	}
 	redisConfig := node.GetRedisConfig()
 	ctx.JSON(http.StatusOK, redisConfig)
 }

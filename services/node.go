@@ -3,9 +3,11 @@ package services
 import (
 	"github.com/universalmacro/common/dao"
 	"github.com/universalmacro/common/singleton"
+	"github.com/universalmacro/common/snowflake"
 	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/dao/repositories"
 	"github.com/universalmacro/core/services/models"
+	"gorm.io/gorm"
 )
 
 func newNodeService() *NodeService {
@@ -27,16 +29,22 @@ type NodeService struct {
 }
 
 func (s *NodeService) CreateNode(name, description string) *models.Node {
+	var idGenerator = snowflake.NewIdGenertor(1)
 	entity := &entities.Node{Name: name, Description: description}
 	node := models.NewNode(entity)
 	node.UpdateSecurityKey()
 	s.nodeRepository.Create(node.Entity())
-	repositories.GetNodeConfigRepository().Create(&entities.NodeConfig{NodeID: node.ID()})
+	repositories.GetNodeConfigRepository().Create(
+		&entities.NodeConfig{Model: gorm.Model{ID: idGenerator.Uint()},
+			NodeID: node.ID()})
 	return node
 }
 
 func (s *NodeService) GetNode(id uint) *models.Node {
 	entity, _ := s.nodeRepository.GetById(id)
+	if entity == nil {
+		return nil
+	}
 	return models.NewNode(entity)
 }
 

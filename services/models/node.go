@@ -64,8 +64,7 @@ func (n *Node) UpdateDatabaseConfig(dbConfig *entities.DBConfig) *entities.DBCon
 }
 
 func (n *Node) GetRedisConfig() *entities.RedisConfig {
-	nodeConfigRepository := repositories.GetNodeConfigRepository()
-	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
+	nodeConfig, _ := repositories.GetNodeConfigRepository().FindOne("node_id = ?", n.ID())
 	return nodeConfig.Redis
 }
 
