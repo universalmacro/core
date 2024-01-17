@@ -73,6 +73,10 @@ func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
 		return
 	}
 	dbConfig := node.GetDatabaseConfig()
+	if dbConfig == nil {
+		ctx.JSON(http.StatusNoContent, nil)
+		return
+	}
 	ctx.JSON(http.StatusOK, dbConfig)
 }
 
@@ -111,6 +115,10 @@ func (c *NodeController) GetNodeRedisConfig(ctx *gin.Context) {
 		return
 	}
 	redisConfig := node.GetRedisConfig()
+	if redisConfig == nil {
+		ctx.JSON(http.StatusNoContent, nil)
+		return
+	}
 	ctx.JSON(http.StatusOK, redisConfig)
 }
 
