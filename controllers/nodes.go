@@ -89,3 +89,37 @@ func (c *NodeController) UpdateNodeDatabaseConfig(ctx *gin.Context) {
 	node.UpdateDatabaseConfig(&dbConfig)
 	ctx.JSON(http.StatusOK, dbConfig)
 }
+
+func (c *NodeController) GetNodeRedisConfig(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	redisConfig := node.GetRedisConfig()
+	ctx.JSON(http.StatusOK, redisConfig)
+}
+
+func (c *NodeController) UpdateNodeRedisConfig(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	var redisConfig entities.RedisConfig
+	ctx.ShouldBindJSON(&redisConfig)
+	node.UpdateRedisConfig(&redisConfig)
+	ctx.JSON(http.StatusOK, redisConfig)
+}

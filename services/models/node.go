@@ -51,14 +51,28 @@ func (n *Node) Entity() *entities.Node {
 
 func (n *Node) GetDatabaseConfig() *entities.DBConfig {
 	nodeConfigRepository := repositories.GetNodeConfigRepository()
-	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
+	nodeConfig, _ := nodeConfigRepository.GetById(n.ID())
 	return nodeConfig.Database
 }
 
 func (n *Node) UpdateDatabaseConfig(dbConfig *entities.DBConfig) *entities.DBConfig {
 	nodeConfigRepository := repositories.GetNodeConfigRepository()
-	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
+	nodeConfig, _ := nodeConfigRepository.GetById(n.ID())
 	nodeConfig.Database = dbConfig
 	nodeConfigRepository.Update(nodeConfig)
 	return nodeConfig.Database
+}
+
+func (n *Node) GetRedisConfig() *entities.RedisConfig {
+	nodeConfigRepository := repositories.GetNodeConfigRepository()
+	nodeConfig, _ := nodeConfigRepository.GetById(n.ID())
+	return nodeConfig.Redis
+}
+
+func (n *Node) UpdateRedisConfig(redisConfig *entities.RedisConfig) *entities.RedisConfig {
+	nodeConfigRepository := repositories.GetNodeConfigRepository()
+	nodeConfig, _ := nodeConfigRepository.GetById(n.ID())
+	nodeConfig.Redis = redisConfig
+	nodeConfigRepository.Update(nodeConfig)
+	return nodeConfig.Redis
 }
