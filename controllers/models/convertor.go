@@ -46,7 +46,7 @@ func NodeConvertor(node *models.Node) *Node {
 
 func AdminListConvertor(admins dao.List[models.Admin]) dao.List[Admin] {
 	var adminList dao.List[Admin]
-	var items []Admin
+	var items []Admin = make([]Admin, 0)
 	for _, admin := range admins.Items {
 		items = append(items, AdminConvertor(admin))
 	}
