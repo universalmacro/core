@@ -63,7 +63,6 @@ func (c *NodeController) GetNodeConfig(ctx *gin.Context) {
 		fault.GinHandler(ctx, fault.ErrNotFound)
 		return
 	}
-
 	var headers Headers
 	ctx.ShouldBindHeader(&headers)
 	if headers.ApiKey != nil {
@@ -77,10 +76,6 @@ func (c *NodeController) GetNodeConfig(ctx *gin.Context) {
 	admin := getAdmin(ctx)
 	if admin == nil {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
-		return
-	}
-	if admin.Role() != "ROOT" {
-		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return
 	}
 	ctx.JSON(http.StatusOK, models.NodeConfigConvertor(node.Config()))
