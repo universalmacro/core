@@ -27,7 +27,7 @@ type NodeConfig struct {
 	gorm.Model
 	NodeID    uint
 	SecretKey string        `gorm:"type:varchar(64)"`
-	ApiConfig *ApiConfig    `gorm:"type:json"`
+	Api       *ApiConfig    `gorm:"type:json"`
 	Server    *ServerConfig `gorm:"type:json"`
 	Database  *DBConfig     `gorm:"type:json"`
 	Redis     *RedisConfig  `gorm:"type:json"`

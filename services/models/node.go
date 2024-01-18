@@ -54,6 +54,30 @@ func (n *Node) Config() *entities.NodeConfig {
 	return nodeConfig
 }
 
+func (n *Node) UpdateConfig(
+	api *entities.ApiConfig,
+	server *entities.ServerConfig,
+	database *entities.DBConfig,
+	redis *entities.RedisConfig,
+) *entities.NodeConfig {
+	nodeConfigRepository := repositories.GetNodeConfigRepository()
+	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
+	if api != nil {
+		nodeConfig.Api = api
+	}
+	if server != nil {
+		nodeConfig.Server = server
+	}
+	if database != nil {
+		nodeConfig.Database = database
+	}
+	if redis != nil {
+		nodeConfig.Redis = redis
+	}
+	nodeConfigRepository.Update(nodeConfig)
+	return nodeConfig
+}
+
 func (n *Node) GetDatabaseConfig() *entities.DBConfig {
 	nodeConfigRepository := repositories.GetNodeConfigRepository()
 	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())

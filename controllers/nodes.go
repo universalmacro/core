@@ -81,6 +81,24 @@ func (c *NodeController) GetNodeConfig(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, models.NodeConfigConvertor(node.Config()))
 }
 
+func (c *NodeController) UpdateNodeConfig(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	if node == nil {
+		fault.GinHandler(ctx, fault.ErrNotFound)
+		return
+	}
+	var nodeConfig models.NodeConfig
+	ctx.ShouldBindJSON(&nodeConfig)
+	node.UpdateConfig(nodeConfig.Api, nodeConfig.Server, nodeConfig.Database, nodeConfig.Redis)
+	ctx.JSON(http.StatusOK, models.NodeConfigConvertor(node.Config()))
+}
+
 func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
 	id := ctx.Param("id")
 	node := c.NodeService.GetNode(utils.StringToUint(id))
