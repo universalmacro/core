@@ -2,7 +2,7 @@ package entities
 
 import (
 	"github.com/universalmacro/common/auth"
-	"github.com/universalmacro/common/dao"
+	"github.com/universalmacro/common/dao/data"
 	"github.com/universalmacro/common/snowflake"
 	"gorm.io/gorm"
 )
@@ -10,7 +10,7 @@ import (
 type Admin struct {
 	gorm.Model
 	Account string `gorm:"type:varchar(64);uniqueIndex"`
-	*dao.PhoneNumber
+	*data.PhoneNumber
 	auth.Password
 	Role string `gorm:"type:varchar(20)"`
 }

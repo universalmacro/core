@@ -141,6 +141,10 @@ github.com/universalmacro/common v0.0.0-20240116030026-cc6e77efe874 h1:zlQEOO0tw
 github.com/universalmacro/common v0.0.0-20240116030026-cc6e77efe874/go.mod h1:JIJBYUp23xuSLy06pBHEBaXmrMB8CNuDcO1a10oAAOY=
 github.com/universalmacro/common v0.0.0-20240118031823-ed70664016e9 h1:Q/HS+iw0OV8BROxgDwN+lpPoKWNTvHVCGz/P7jiURJI=
 github.com/universalmacro/common v0.0.0-20240118031823-ed70664016e9/go.mod h1:eWCyyl01Ab6N0VJc4OE6CmxNP+g9KZCi4OS0V7JP0/M=
+github.com/universalmacro/common v0.0.0-20240118124732-a75a786ac010 h1:j3ASWp1rvEjJeYXLmbHRjauX3GiOSQBiFmYPLVZKvS0=
+github.com/universalmacro/common v0.0.0-20240118124732-a75a786ac010/go.mod h1:Q3BhDJhJ+8uP93CzHq1RzI9gnzBqwI2BL8OOWGFfKY8=
+github.com/universalmacro/common v0.0.0-20240118124821-47476ba54421 h1:u2vuKZFI0VmcGtb5BWf9bgcnx2h/52t0vsNqEuW0csI=
+github.com/universalmacro/common v0.0.0-20240118124821-47476ba54421/go.mod h1:Q3BhDJhJ+8uP93CzHq1RzI9gnzBqwI2BL8OOWGFfKY8=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
 go.uber.org/multierr v1.11.0/go.mod h1:20+QtiLqy0Nd6FdQB9TLXag12DsQkrbs3htMFfDN80Y=
 golang.org/x/arch v0.0.0-20210923205945-b76863e36670/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=
