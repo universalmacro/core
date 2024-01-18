@@ -3,10 +3,9 @@ package entities
 import (
 	"database/sql/driver"
 	"encoding/json"
-	"errors"
-	"fmt"
 
 	"github.com/universalmacro/common/snowflake"
+	"github.com/universalmacro/common/utils"
 	"gorm.io/gorm"
 )
 
@@ -27,30 +26,30 @@ func (a *Node) BeforeCreate(tx *gorm.DB) (err error) {
 type NodeConfig struct {
 	gorm.Model
 	NodeID    uint
-	SecretKey string       `gorm:"type:varchar(64)"`
-	Database  *DBConfig    `gorm:"type:json"`
-	Redis     *RedisConfig `gorm:"type:json"`
+	SecretKey string        `gorm:"type:varchar(64)"`
+	ApiConfig *ApiConfig    `gorm:"type:json"`
+	Server    *ServerConfig `gorm:"type:json"`
+	Database  *DBConfig     `gorm:"type:json"`
+	Redis     *RedisConfig  `gorm:"type:json"`
+}
+
+type ApiConfig struct {
+	MerchantUrl string `json:"merchantUrl" gorm:"type:varchar(256)"`
+}
+
+type ServerConfig struct {
+	Port      string `json:"port" gorm:"type:varchar(64)"`
+	JwtSecret string `json:"jwtSecret" gorm:"type:varchar(64)"`
 }
 
 type RedisConfig struct {
-	Host     string `gorm:"type:varchar(64)"`
-	Port     string `gorm:"type:varchar(64)"`
-	Password string `gorm:"type:varchar(64)"`
+	Host     string `json:"host" gorm:"type:varchar(64)"`
+	Port     string `json:"port" gorm:"type:varchar(64)"`
+	Password string `json:"password" gorm:"type:varchar(64)"`
 }
 
-func (j *RedisConfig) Scan(value interface{}) error {
-	if value == nil {
-		return nil
-	}
-	bytes, ok := value.([]byte)
-	if !ok {
-		return errors.New(fmt.Sprint("Failed to unmarshal JSONB value:", value))
-	}
-
-	result := RedisConfig{}
-	err := json.Unmarshal(bytes, &result)
-	*j = RedisConfig(result)
-	return err
+func (j *RedisConfig) Scan(value any) error {
+	return utils.ScanJson(value, j)
 }
 
 func (j RedisConfig) Value() (driver.Value, error) {
@@ -65,19 +64,8 @@ type DBConfig struct {
 	Database string `json:"database" gorm:"type:varchar(64)"`
 }
 
-func (j *DBConfig) Scan(value interface{}) error {
-	if value == nil {
-		return nil
-	}
-	bytes, ok := value.([]byte)
-	if !ok {
-		return errors.New(fmt.Sprint("Failed to unmarshal JSONB value:", value))
-	}
-
-	result := DBConfig{}
-	err := json.Unmarshal(bytes, &result)
-	*j = DBConfig(result)
-	return err
+func (j *DBConfig) Scan(value any) error {
+	return utils.ScanJson(value, j)
 }
 
 func (j DBConfig) Value() (driver.Value, error) {

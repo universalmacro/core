@@ -56,6 +56,36 @@ func (c *NodeController) ListNode(ctx *gin.Context) {
 	ctx.JSON(http.StatusOK, models.NodeListConvertor(nodeList))
 }
 
+func (c *NodeController) GetNodeConfig(ctx *gin.Context) {
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	if node == nil {
+		fault.GinHandler(ctx, fault.ErrNotFound)
+		return
+	}
+
+	var headers Headers
+	ctx.ShouldBindHeader(&headers)
+	if headers.ApiKey != nil {
+		if *headers.ApiKey == node.SecurityKey() {
+			ctx.JSON(http.StatusOK, models.NodeConfigConvertor(node.Config()))
+		} else {
+			fault.GinHandler(ctx, fault.ErrUnauthorized)
+		}
+		return
+	}
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	if admin.Role() != "ROOT" {
+		fault.GinHandler(ctx, fault.ErrPermissionDenied)
+		return
+	}
+	ctx.JSON(http.StatusOK, models.NodeConfigConvertor(node.Config()))
+}
+
 func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
 	id := ctx.Param("id")
 	node := c.NodeService.GetNode(utils.StringToUint(id))

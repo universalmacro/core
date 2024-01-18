@@ -49,6 +49,11 @@ func (n *Node) Entity() *entities.Node {
 	return n.entity
 }
 
+func (n *Node) Config() *entities.NodeConfig {
+	nodeConfig, _ := repositories.GetNodeConfigRepository().FindOne("node_id = ?", n.ID())
+	return nodeConfig
+}
+
 func (n *Node) GetDatabaseConfig() *entities.DBConfig {
 	nodeConfigRepository := repositories.GetNodeConfigRepository()
 	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())

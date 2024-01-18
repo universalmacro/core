@@ -1,5 +1,7 @@
 package models
 
+import "github.com/universalmacro/core/dao/entities"
+
 type CreateSessionRequest struct {
 	Account  string `json:"account" binding:"required"`
 	Password string `json:"password" binding:"required"`
@@ -46,26 +48,13 @@ type Node struct {
 	SecurityKey string `json:"securityKey"`
 	CreatedAt   int64  `json:"createdAt"`
 	UpdatedAt   int64  `json:"updatedAt"`
-	// Config      NodeConfig `json:"config"`
 }
 
 type NodeConfig struct {
-	DBConfig    *DBConfig    `json:"dbConfig"`
-	RedisConfig *RedisConfig `json:"redisConfig"`
-}
-
-type DBConfig struct {
-	Host     string `json:"host"`
-	Port     string `json:"port"`
-	Username string `json:"username"`
-	Password string `json:"password"`
-	Database string `json:"database"`
-}
-
-type RedisConfig struct {
-	Host     string `json:"host"`
-	Port     string `json:"port"`
-	Password string `json:"password"`
+	Api      *entities.ApiConfig    `json:"api"`
+	Server   *entities.ServerConfig `json:"server"`
+	Database *entities.DBConfig     `json:"database"`
+	Redis    *entities.RedisConfig  `json:"redis"`
 }
 
 type CreateMerchantRequest struct {

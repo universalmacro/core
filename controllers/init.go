@@ -60,6 +60,7 @@ func Init(addr ...string) {
 	// Node
 	router.POST("/nodes", nodeController.CreateNode)
 	router.GET("/nodes", nodeController.ListNode)
+	router.GET("/nodes/:id/config", nodeController.GetNodeConfig)
 	router.GET("/nodes/:id/config/database", nodeController.GetNodeDatabaseConfig)
 	router.PUT("/nodes/:id/config/database", nodeController.UpdateNodeDatabaseConfig)
 	router.GET("/nodes/:id/config/redis", nodeController.GetNodeRedisConfig)

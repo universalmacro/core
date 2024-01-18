@@ -3,6 +3,7 @@ package models
 import (
 	"github.com/universalmacro/common/dao"
 	"github.com/universalmacro/common/utils"
+	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/services/models"
 )
 
@@ -64,4 +65,16 @@ func NodeListConvertor(nodes dao.List[models.Node]) dao.List[Node] {
 	nodeList.Items = items
 	nodeList.Pagination = nodes.Pagination
 	return nodeList
+}
+
+func NodeConfigConvertor(nodeConfig *entities.NodeConfig) *NodeConfig {
+	if nodeConfig == nil {
+		return nil
+	}
+	return &NodeConfig{
+		Api:      nodeConfig.ApiConfig,
+		Server:   nodeConfig.Server,
+		Database: nodeConfig.Database,
+		Redis:    nodeConfig.Redis,
+	}
 }
