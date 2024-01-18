@@ -37,9 +37,25 @@ type ApiConfig struct {
 	MerchantUrl string `json:"merchantUrl" gorm:"type:varchar(256)"`
 }
 
+func (j *ApiConfig) Scan(value any) error {
+	return utils.ScanJson(value, j)
+}
+
+func (j ApiConfig) Value() (driver.Value, error) {
+	return json.Marshal(j)
+}
+
 type ServerConfig struct {
 	Port      string `json:"port" gorm:"type:varchar(64)"`
 	JwtSecret string `json:"jwtSecret" gorm:"type:varchar(64)"`
+}
+
+func (j *ServerConfig) Scan(value any) error {
+	return utils.ScanJson(value, j)
+}
+
+func (j ServerConfig) Value() (driver.Value, error) {
+	return json.Marshal(j)
 }
 
 type RedisConfig struct {
