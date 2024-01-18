@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/common/server"
 	"github.com/universalmacro/core/services"
 	"github.com/universalmacro/core/services/models"
@@ -16,6 +15,7 @@ var VERSION = "0.0.3"
 
 type Headers struct {
 	Authorization string
+	ApiKey        *string
 }
 
 func Init(addr ...string) {
@@ -72,12 +72,10 @@ func Init(addr ...string) {
 func getAdmin(ctx *gin.Context) *models.Admin {
 	adminInterface, ok := ctx.Get("admin")
 	if !ok {
-		fault.GinHandler(ctx, fault.ErrUnauthorized)
 		return nil
 	}
 	admin, ok := adminInterface.(*models.Admin)
 	if !ok {
-		fault.GinHandler(ctx, fault.ErrUnauthorized)
 		return nil
 	}
 	return admin

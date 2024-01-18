@@ -67,3 +67,15 @@ type RedisConfig struct {
 	Port     string `json:"port"`
 	Password string `json:"password"`
 }
+
+type CreateMerchantRequest struct {
+	Account  string `json:"account"`
+	Password string `json:"password"`
+}
+
+type Merchant struct {
+	ID        string `json:"id"`
+	Account   string `json:"account"`
+	CreatedAt int64  `json:"createdAt"`
+	UpdatedAt int64  `json:"updatedAt"`
+}

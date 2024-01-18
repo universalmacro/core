@@ -57,6 +57,23 @@ func (c *NodeController) ListNode(ctx *gin.Context) {
 }
 
 func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	if node == nil {
+		fault.GinHandler(ctx, fault.ErrNotFound)
+		return
+	}
+	dbConfig := node.GetDatabaseConfig()
+	var headers Headers
+	ctx.ShouldBindHeader(&headers)
+	if headers.ApiKey != nil {
+		if *headers.ApiKey == node.SecurityKey() {
+			ctx.JSON(http.StatusOK, dbConfig)
+		} else {
+			fault.GinHandler(ctx, fault.ErrUnauthorized)
+		}
+		return
+	}
 	admin := getAdmin(ctx)
 	if admin == nil {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
@@ -66,13 +83,6 @@ func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return
 	}
-	id := ctx.Param("id")
-	node := c.NodeService.GetNode(utils.StringToUint(id))
-	if node == nil {
-		fault.GinHandler(ctx, fault.ErrNotFound)
-		return
-	}
-	dbConfig := node.GetDatabaseConfig()
 	if dbConfig == nil {
 		ctx.JSON(http.StatusNoContent, nil)
 		return
@@ -99,6 +109,12 @@ func (c *NodeController) UpdateNodeDatabaseConfig(ctx *gin.Context) {
 }
 
 func (c *NodeController) GetNodeRedisConfig(ctx *gin.Context) {
+	id := ctx.Param("id")
+	node := c.NodeService.GetNode(utils.StringToUint(id))
+	if node == nil {
+		fault.GinHandler(ctx, fault.ErrNotFound)
+		return
+	}
 	admin := getAdmin(ctx)
 	if admin == nil {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
@@ -106,12 +122,6 @@ func (c *NodeController) GetNodeRedisConfig(ctx *gin.Context) {
 	}
 	if admin.Role() != "ROOT" {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
-		return
-	}
-	id := ctx.Param("id")
-	node := c.NodeService.GetNode(utils.StringToUint(id))
-	if node == nil {
-		fault.GinHandler(ctx, fault.ErrNotFound)
 		return
 	}
 	redisConfig := node.GetRedisConfig()
