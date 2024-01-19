@@ -2,15 +2,16 @@ package repositories
 
 import (
 	"github.com/universalmacro/common/dao"
-	"github.com/universalmacro/common/singleton"
+	single "github.com/universalmacro/common/singleton"
 	"github.com/universalmacro/core/dao/entities"
+	"github.com/universalmacro/core/singleton"
 )
 
-var nodeRepository = singleton.NewSingleton[NodeRepository](func() *NodeRepository {
+var nodeRepository = single.NewSingleton[NodeRepository](func() *NodeRepository {
 	return &NodeRepository{
-		dao.NewRepository[entities.Node](),
+		dao.NewRepository[entities.Node](singleton.GetDBInstance()),
 	}
-}, singleton.Eager)
+}, single.Eager)
 
 func GetNodeRepository() *NodeRepository {
 	return nodeRepository.Get()
@@ -24,11 +25,11 @@ type NodeConfigRepository struct {
 	*dao.Repository[entities.NodeConfig]
 }
 
-var nodeConfigRepository = singleton.NewSingleton[NodeConfigRepository](func() *NodeConfigRepository {
+var nodeConfigRepository = single.NewSingleton[NodeConfigRepository](func() *NodeConfigRepository {
 	return &NodeConfigRepository{
-		dao.NewRepository[entities.NodeConfig](),
+		dao.NewRepository[entities.NodeConfig](singleton.GetDBInstance()),
 	}
-}, singleton.Eager)
+}, single.Eager)
 
 func GetNodeConfigRepository() *NodeConfigRepository {
 	return nodeConfigRepository.Get()
