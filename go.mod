@@ -1,6 +1,8 @@
 module github.com/universalmacro/core
 
-go 1.21.1
+go 1.21.5
+
+toolchain go1.21.6
 
 require (
 	github.com/gin-gonic/gin v1.9.1
@@ -53,6 +55,7 @@ require (
 	github.com/subosito/gotenv v1.6.0 // indirect
 	github.com/twitchyliquid64/golang-asm v0.15.1 // indirect
 	github.com/ugorji/go/codec v1.2.11 // indirect
+	github.com/universalmacro/core-api-interfaces v0.0.0-20240120145630-b0937ad58c9d // indirect
 	go.uber.org/multierr v1.11.0 // indirect
 	golang.org/x/arch v0.4.0 // indirect
 	golang.org/x/crypto v0.16.0 // indirect

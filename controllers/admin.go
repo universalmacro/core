@@ -18,6 +18,21 @@ type AdminController struct {
 	adminService *services.AdminService
 }
 
+// GetAdminSelf implements coreapiinterfaces.AdminApi.
+func (*AdminController) GetAdminSelf(ctx *gin.Context) {
+	panic("unimplemented")
+}
+
+// UpdateAdminPassword implements coreapiinterfaces.AdminApi.
+func (*AdminController) UpdateAdminPassword(ctx *gin.Context) {
+	panic("unimplemented")
+}
+
+// UpdateAdminSelfPassword implements coreapiinterfaces.AdminApi.
+func (*AdminController) UpdateAdminSelfPassword(ctx *gin.Context) {
+	panic("unimplemented")
+}
+
 func (a *AdminController) CreateAdmin(ctx *gin.Context) {
 	account := getAdmin(ctx)
 	if account == nil || account.Role() != "ROOT" {

@@ -6,6 +6,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/universalmacro/common/server"
+	coreapiinterfaces "github.com/universalmacro/core-api-interfaces"
 	"github.com/universalmacro/core/services"
 	"github.com/universalmacro/core/services/models"
 )
@@ -40,34 +41,16 @@ func Init(addr ...string) {
 		ctx.Next()
 	})
 	server.MetricsMiddleware(router)
+
 	router.GET("/version", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"version": VERSION,
 		})
 	})
-	// Session
-	router.POST("/sessions", sessionsControllers.CreateSession)
 
-	// Admin
-	router.GET("/admins", adminController.ListAdmin)
-	router.POST("/admins", adminController.CreateAdmin)
-	router.GET("/admins/self", adminController.GetSelf)
-	router.PUT("/admins/self/password", adminController.UpdateSelfPassword)
-	router.PUT("/admins/:id/password", adminController.UpdatePassword)
-	router.DELETE("/admins/:id", adminController.DeleteAdmin)
-	router.GET("/admins/:id", adminController.GetAdmin)
-
-	// Node
-	router.POST("/nodes", nodeController.CreateNode)
-	router.GET("/nodes", nodeController.ListNode)
-	router.GET("/nodes/:id/config", nodeController.GetNodeConfig)
-	router.PATCH("/nodes/:id/config", nodeController.UpdateNodeConfig)
-	router.GET("/nodes/:id/config/database", nodeController.GetNodeDatabaseConfig)
-	router.PUT("/nodes/:id/config/database", nodeController.UpdateNodeDatabaseConfig)
-	router.GET("/nodes/:id/config/redis", nodeController.GetNodeRedisConfig)
-	router.PUT("/nodes/:id/config/redis", nodeController.UpdateNodeRedisConfig)
-	router.DELETE("/nodes/:id", nodeController.DeleteNode)
-	router.GET("/nodes/:id", nodeController.GetNode)
+	coreapiinterfaces.AdminApiBinding(router, adminController)
+	coreapiinterfaces.NodeApiBinding(router, nodeController)
+	coreapiinterfaces.SessionApiBinding(router, sessionsControllers)
 	router.Run(addr...)
 }
 
