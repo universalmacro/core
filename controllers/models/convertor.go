@@ -3,29 +3,29 @@ package models
 import (
 	"github.com/universalmacro/common/dao"
 	"github.com/universalmacro/common/utils"
+	api "github.com/universalmacro/core-api-interfaces"
 	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/services/models"
 )
 
-func AdminConvertor(admin models.Admin) Admin {
-	return Admin{
-		ID:          utils.UintToString(admin.ID()),
+func AdminConvertor(admin models.Admin) api.Admin {
+	role := api.Role(admin.Role())
+	return api.Admin{
+		Id:          utils.UintToString(admin.ID()),
 		Account:     admin.Account(),
-		Role:        admin.Role(),
+		Role:        &role,
 		PhoneNumber: PhoneNumberConvertor(admin.PhoneNumber()),
-		CreatedAt:   admin.CreatedAt().Unix(),
-		UpdatedAt:   admin.UpdatedAt().Unix(),
 	}
 }
 
-func PhoneNumberConvertor(phoneNumber *models.PhoneNumber) *PhoneNumber {
+func PhoneNumberConvertor(phoneNumber *models.PhoneNumber) *api.PhoneNumber {
 	if phoneNumber == nil {
 		return nil
 	}
 	if phoneNumber.CountryCode == "" || phoneNumber.Number == "" {
 		return nil
 	}
-	return &PhoneNumber{
+	return &api.PhoneNumber{
 		CountryCode: phoneNumber.CountryCode,
 		Number:      phoneNumber.Number,
 	}
@@ -45,9 +45,9 @@ func NodeConvertor(node *models.Node) *Node {
 	}
 }
 
-func AdminListConvertor(admins dao.List[models.Admin]) dao.List[Admin] {
-	var adminList dao.List[Admin]
-	var items []Admin = make([]Admin, 0)
+func AdminListConvertor(admins dao.List[models.Admin]) dao.List[api.Admin] {
+	var adminList dao.List[api.Admin]
+	var items []api.Admin = make([]api.Admin, 0)
 	for _, admin := range admins.Items {
 		items = append(items, AdminConvertor(admin))
 	}
