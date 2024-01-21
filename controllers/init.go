@@ -42,13 +42,11 @@ func Init(addr ...string) {
 		ctx.Next()
 	})
 	server.MetricsMiddleware(router)
-
 	router.GET("/version", func(ctx *gin.Context) {
 		ctx.JSON(http.StatusOK, gin.H{
 			"version": VERSION,
 		})
 	})
-
 	coreapiinterfaces.AdminApiBinding(router, adminController)
 	coreapiinterfaces.NodeApiBinding(router, nodeController)
 	coreapiinterfaces.SessionApiBinding(router, sessionsControllers)
