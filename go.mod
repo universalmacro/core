@@ -1,8 +1,6 @@
 module github.com/universalmacro/core
 
-go 1.21.5
-
-toolchain go1.21.6
+go 1.21.6
 
 require (
 	github.com/gin-gonic/gin v1.9.1
