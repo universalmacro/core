@@ -7,7 +7,7 @@ toolchain go1.21.6
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/universalmacro/common v0.0.0-20240119025557-49ee0ffb9515
+	github.com/universalmacro/common v0.0.0-20240121131108-46f3dd840201
 	github.com/universalmacro/core-api-interfaces v0.0.0-20240120152543-b289b87ab02d
 	gorm.io/gorm v1.25.5
 )
