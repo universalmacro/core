@@ -21,6 +21,11 @@ type NodeController struct {
 	NodeService *services.NodeService
 }
 
+// GetNodeApiConfigByDomain implements coreapiinterfaces.NodeApi.
+func (*NodeController) GetNodeApiConfigByDomain(ctx *gin.Context) {
+	panic("unimplemented")
+}
+
 func (c *NodeController) CreateNode(ctx *gin.Context) {
 	admin := getAdmin(ctx)
 	if admin.Role() != "ROOT" {
