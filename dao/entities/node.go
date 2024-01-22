@@ -78,6 +78,7 @@ type DBConfig struct {
 	Username string `json:"username" gorm:"type:varchar(64)"`
 	Password string `json:"password" gorm:"type:varchar(64)"`
 	Database string `json:"database" gorm:"type:varchar(64)"`
+	Type     string `json:"type" gorm:"type:varchar(64)"`
 }
 
 func (j *DBConfig) Scan(value any) error {
