@@ -130,6 +130,8 @@ github.com/universalmacro/common v0.0.0-20240121131108-46f3dd840201 h1:GCcJaMEer
 github.com/universalmacro/common v0.0.0-20240121131108-46f3dd840201/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240124025128-8e9e45542c5a h1:1ahLaryRJv7aP4ir7URyeSAR7yDAgZxHTBnZBeP4XLU=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240124025128-8e9e45542c5a/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240124025529-a32d231548cf h1:gmWmDR0bmfcWJT9M8oPA6jG7KrVQceiowRMkMKtpiFA=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240124025529-a32d231548cf/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
 go.uber.org/multierr v1.11.0/go.mod h1:20+QtiLqy0Nd6FdQB9TLXag12DsQkrbs3htMFfDN80Y=
 golang.org/x/arch v0.0.0-20210923205945-b76863e36670/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=
