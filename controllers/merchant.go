@@ -13,6 +13,16 @@ func newMerchantController() *MerchantController {
 
 type MerchantController struct{}
 
+// DeleteMerchant implements coreapiinterfaces.MerchantApi.
+func (*MerchantController) DeleteMerchant(ctx *gin.Context) {
+	panic("unimplemented")
+}
+
+// GetMerchant implements coreapiinterfaces.MerchantApi.
+func (*MerchantController) GetMerchant(ctx *gin.Context) {
+	panic("unimplemented")
+}
+
 // AddMerchantToNode implements coreapiinterfaces.MerchantApi.
 func (*MerchantController) AddMerchantToNode(ctx *gin.Context) {
 	ctx.JSON(http.StatusCreated, api.Merchant{
