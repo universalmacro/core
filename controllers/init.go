@@ -24,7 +24,7 @@ func Init(addr ...string) {
 	var adminService = services.GetAdminService()
 	var sessionsControllers = newSessionsController()
 	var nodeController = newNodeController()
-	var merchantController = newMerchantController()
+	// var merchantController = newMerchantController()
 	// Cors
 	router.Use(server.CorsMiddleware())
 	// Auth
@@ -50,7 +50,7 @@ func Init(addr ...string) {
 	coreapiinterfaces.AdminApiBinding(router, adminController)
 	coreapiinterfaces.NodeApiBinding(router, nodeController)
 	coreapiinterfaces.SessionApiBinding(router, sessionsControllers)
-	coreapiinterfaces.MerchantApiBinding(router, merchantController)
+	// coreapiinterfaces.MerchantApiBinding(router, merchantController)
 	router.Run(addr...)
 }
 
