@@ -7,6 +7,11 @@ RUN go env -w GOPRIVATE=github.com/universalmacro/*
 RUN git config --global url."https://${GIT_NAME}:${GIT_TOKEN}@github.com".insteadOf "https://github.com"
 RUN go mod download
 COPY . .
-RUN go build -o /main
+RUN CGO_ENABLED=0 GOOS=linux go build -o /docker-gs-ping
+
+FROM gcr.io/distroless/base-debian11 AS build-release-stage
+WORKDIR /
+COPY --from=build-stage /docker-gs-ping /docker-gs-ping
 EXPOSE 8080
-CMD [ "/main" ]
+USER nonroot:nonroot
+ENTRYPOINT ["/docker-gs-ping"]
