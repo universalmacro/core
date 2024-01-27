@@ -130,6 +130,12 @@ github.com/universalmacro/common v0.0.0-20240121131108-46f3dd840201 h1:GCcJaMEer
 github.com/universalmacro/common v0.0.0-20240121131108-46f3dd840201/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
 github.com/universalmacro/common v0.0.0-20240124143207-61e4ced8240f h1:H/KV+hYfFNb7PY/ogtusb7T7QaBUP7SGwodL65W6puU=
 github.com/universalmacro/common v0.0.0-20240124143207-61e4ced8240f/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
+github.com/universalmacro/common v0.0.0-20240126091458-984a5275182d h1:RsL8z23RyLBRMMMRL42HKhYNS1NAdrh5u2oBi3rEswo=
+github.com/universalmacro/common v0.0.0-20240126091458-984a5275182d/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
+github.com/universalmacro/common v0.0.0-20240126094914-139fe3fd5eaa h1:KEp+j6fi/up7MoUadxX8TOH/fKi0Zj+/HU/eLNhTLSk=
+github.com/universalmacro/common v0.0.0-20240126094914-139fe3fd5eaa/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
+github.com/universalmacro/common v0.0.0-20240126095106-3e5f185bf1d1 h1:7nToflf/RzMi3ISX/4s7xswqB/T8tFuqL3244ALmFr0=
+github.com/universalmacro/common v0.0.0-20240126095106-3e5f185bf1d1/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240124025128-8e9e45542c5a h1:1ahLaryRJv7aP4ir7URyeSAR7yDAgZxHTBnZBeP4XLU=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240124025128-8e9e45542c5a/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240124025529-a32d231548cf h1:gmWmDR0bmfcWJT9M8oPA6jG7KrVQceiowRMkMKtpiFA=
@@ -138,6 +144,10 @@ github.com/universalmacro/core-api-interfaces v0.0.0-20240124091321-7de647b8d6df
 github.com/universalmacro/core-api-interfaces v0.0.0-20240124091321-7de647b8d6df/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240125064953-ac5b9348739f h1:GeUzBO8OW/NOucxN6jXh5jF/c7aghvNUuwkXa+D6yLI=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240125064953-ac5b9348739f/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240126084432-584e88c5572b h1:5wMaeYiACDVKtqqw5i4pZuQ5U2PA6zkPtXbZTDZ8SW4=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240126084432-584e88c5572b/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240126092612-fd1de38b263d h1:Fer7JEZip0jlTiCuoa9yRlC0fswhEST4ZVMYhcSRmic=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240126092612-fd1de38b263d/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
 go.uber.org/multierr v1.11.0/go.mod h1:20+QtiLqy0Nd6FdQB9TLXag12DsQkrbs3htMFfDN80Y=
 golang.org/x/arch v0.0.0-20210923205945-b76863e36670/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=

@@ -1,11 +1,14 @@
 package models
 
 import (
+	"fmt"
 	"time"
 
+	"github.com/universalmacro/common/snowflake"
 	"github.com/universalmacro/common/utils/random"
 	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/dao/repositories"
+	"gorm.io/gorm"
 )
 
 func NewNode(entity *entities.Node) *Node {
@@ -51,6 +54,11 @@ func (n *Node) Entity() *entities.Node {
 
 func (n *Node) Config() *entities.NodeConfig {
 	nodeConfig, _ := repositories.GetNodeConfigRepository().FindOne("node_id = ?", n.ID())
+	if nodeConfig == nil {
+		nodeConfig = &entities.NodeConfig{Model: gorm.Model{ID: snowflake.NewIdGenertor(0).Uint()},
+			NodeID: n.ID()}
+		repositories.GetNodeConfigRepository().Create(nodeConfig)
+	}
 	return nodeConfig
 }
 
@@ -60,8 +68,7 @@ func (n *Node) UpdateConfig(
 	database *entities.DBConfig,
 	redis *entities.RedisConfig,
 ) *entities.NodeConfig {
-	nodeConfigRepository := repositories.GetNodeConfigRepository()
-	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
+	nodeConfig := n.Config()
 	if api != nil {
 		nodeConfig.Api = api
 	}
@@ -74,22 +81,8 @@ func (n *Node) UpdateConfig(
 	if redis != nil {
 		nodeConfig.Redis = redis
 	}
-	nodeConfigRepository.Update(nodeConfig)
+	repositories.GetNodeConfigRepository().Update(nodeConfig)
 	return nodeConfig
-}
-
-func (n *Node) GetDatabaseConfig() *entities.DBConfig {
-	nodeConfigRepository := repositories.GetNodeConfigRepository()
-	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
-	return nodeConfig.Database
-}
-
-func (n *Node) UpdateDatabaseConfig(dbConfig *entities.DBConfig) *entities.DBConfig {
-	nodeConfigRepository := repositories.GetNodeConfigRepository()
-	nodeConfig, _ := nodeConfigRepository.FindOne("node_id = ?", n.ID())
-	nodeConfig.Database = dbConfig
-	nodeConfigRepository.Update(nodeConfig)
-	return nodeConfig.Database
 }
 
 func (n *Node) GetRedisConfig() *entities.RedisConfig {
@@ -103,4 +96,12 @@ func (n *Node) UpdateRedisConfig(redisConfig *entities.RedisConfig) *entities.Re
 	nodeConfig.Redis = redisConfig
 	nodeConfigRepository.Update(nodeConfig)
 	return nodeConfig.Redis
+}
+
+func (n *Node) CreateMerchant(account, password string) {
+	fmt.Println(n.Config().Api)
+}
+
+func (n *Node) ListMerchants(index, limit int64) {
+
 }

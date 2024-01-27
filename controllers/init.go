@@ -21,14 +21,29 @@ type Headers struct {
 
 func Init(addr ...string) {
 	var adminController = newAdminController()
-	var adminService = services.GetAdminService()
 	var sessionsControllers = newSessionsController()
 	var nodeController = newNodeController()
-	// var merchantController = newMerchantController()
+	var merchantController = newMerchantController()
 	// Cors
 	router.Use(server.CorsMiddleware())
 	// Auth
-	router.Use(func(ctx *gin.Context) {
+	router.Use(auth())
+	server.MetricsMiddleware(router)
+	router.GET("/version", func(ctx *gin.Context) {
+		ctx.JSON(http.StatusOK, gin.H{
+			"version": VERSION,
+		})
+	})
+	coreapiinterfaces.AdminApiBinding(router, adminController)
+	coreapiinterfaces.NodeApiBinding(router, nodeController)
+	coreapiinterfaces.SessionApiBinding(router, sessionsControllers)
+	coreapiinterfaces.MerchantApiBinding(router, merchantController)
+	router.Run(addr...)
+}
+
+func auth() func(ctx *gin.Context) {
+	var adminService = services.GetAdminService()
+	return func(ctx *gin.Context) {
 		var headers Headers
 		ctx.ShouldBindHeader(&headers)
 		authorization := headers.Authorization
@@ -40,18 +55,7 @@ func Init(addr ...string) {
 			}
 		}
 		ctx.Next()
-	})
-	server.MetricsMiddleware(router)
-	router.GET("/version", func(ctx *gin.Context) {
-		ctx.JSON(http.StatusOK, gin.H{
-			"version": VERSION,
-		})
-	})
-	coreapiinterfaces.AdminApiBinding(router, adminController)
-	coreapiinterfaces.NodeApiBinding(router, nodeController)
-	coreapiinterfaces.SessionApiBinding(router, sessionsControllers)
-	// coreapiinterfaces.MerchantApiBinding(router, merchantController)
-	router.Run(addr...)
+	}
 }
 
 func getAdmin(ctx *gin.Context) *models.Admin {

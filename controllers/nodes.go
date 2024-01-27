@@ -5,6 +5,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/universalmacro/common/fault"
+	"github.com/universalmacro/common/server"
 	"github.com/universalmacro/common/utils"
 	"github.com/universalmacro/core/controllers/models"
 	"github.com/universalmacro/core/dao/entities"
@@ -55,9 +56,8 @@ func (c *NodeController) ListNode(ctx *gin.Context) {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return
 	}
-	index := ctx.Query("index")
-	limit := ctx.Query("limit")
-	nodeList := c.NodeService.ListNode(int64(utils.StringToUint(index)), int64(utils.StringToUint(limit)))
+	index, limit := server.IndexAndLimit(ctx)
+	nodeList := c.NodeService.ListNode(index, limit)
 	ctx.JSON(http.StatusOK, models.NodeListConvertor(nodeList))
 }
 
@@ -105,55 +105,55 @@ func (c *NodeController) UpdateNodeConfig(ctx *gin.Context) {
 }
 
 func (c *NodeController) GetNodeDatabaseConfig(ctx *gin.Context) {
-	id := ctx.Param("id")
-	node := c.NodeService.GetNode(utils.StringToUint(id))
-	if node == nil {
-		fault.GinHandler(ctx, fault.ErrNotFound)
-		return
-	}
-	dbConfig := node.GetDatabaseConfig()
-	var headers Headers
-	ctx.ShouldBindHeader(&headers)
-	if headers.ApiKey != nil {
-		if *headers.ApiKey == node.SecurityKey() {
-			ctx.JSON(http.StatusOK, dbConfig)
-		} else {
-			fault.GinHandler(ctx, fault.ErrUnauthorized)
-		}
-		return
-	}
-	admin := getAdmin(ctx)
-	if admin == nil {
-		fault.GinHandler(ctx, fault.ErrUnauthorized)
-		return
-	}
-	if admin.Role() != "ROOT" {
-		fault.GinHandler(ctx, fault.ErrPermissionDenied)
-		return
-	}
-	if dbConfig == nil {
-		ctx.JSON(http.StatusNoContent, nil)
-		return
-	}
-	ctx.JSON(http.StatusOK, dbConfig)
+	// id := ctx.Param("id")
+	// node := c.NodeService.GetNode(utils.StringToUint(id))
+	// if node == nil {
+	// 	fault.GinHandler(ctx, fault.ErrNotFound)
+	// 	return
+	// }
+	// dbConfig := node.GetDatabaseConfig()
+	// var headers Headers
+	// ctx.ShouldBindHeader(&headers)
+	// if headers.ApiKey != nil {
+	// 	if *headers.ApiKey == node.SecurityKey() {
+	// 		ctx.JSON(http.StatusOK, dbConfig)
+	// 	} else {
+	// 		fault.GinHandler(ctx, fault.ErrUnauthorized)
+	// 	}
+	// 	return
+	// }
+	// admin := getAdmin(ctx)
+	// if admin == nil {
+	// 	fault.GinHandler(ctx, fault.ErrUnauthorized)
+	// 	return
+	// }
+	// if admin.Role() != "ROOT" {
+	// 	fault.GinHandler(ctx, fault.ErrPermissionDenied)
+	// 	return
+	// }
+	// if dbConfig == nil {
+	// 	ctx.JSON(http.StatusNoContent, nil)
+	// 	return
+	// }
+	// ctx.JSON(http.StatusOK, dbConfig)
 }
 
 func (c *NodeController) UpdateNodeDatabaseConfig(ctx *gin.Context) {
-	admin := getAdmin(ctx)
-	if admin == nil {
-		fault.GinHandler(ctx, fault.ErrUnauthorized)
-		return
-	}
-	if admin.Role() != "ROOT" {
-		fault.GinHandler(ctx, fault.ErrPermissionDenied)
-		return
-	}
-	id := ctx.Param("id")
-	node := c.NodeService.GetNode(utils.StringToUint(id))
-	var dbConfig entities.DBConfig
-	ctx.ShouldBindJSON(&dbConfig)
-	node.UpdateDatabaseConfig(&dbConfig)
-	ctx.JSON(http.StatusOK, dbConfig)
+	// admin := getAdmin(ctx)
+	// if admin == nil {
+	// 	fault.GinHandler(ctx, fault.ErrUnauthorized)
+	// 	return
+	// }
+	// if admin.Role() != "ROOT" {
+	// 	fault.GinHandler(ctx, fault.ErrPermissionDenied)
+	// 	return
+	// }
+	// id := ctx.Param("id")
+	// node := c.NodeService.GetNode(utils.StringToUint(id))
+	// var dbConfig entities.DBConfig
+	// ctx.ShouldBindJSON(&dbConfig)
+	// node.UpdateDatabaseConfig(&dbConfig)
+	// ctx.JSON(http.StatusOK, dbConfig)
 }
 
 func (c *NodeController) GetNodeRedisConfig(ctx *gin.Context) {

@@ -5,8 +5,8 @@ go 1.21.6
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
-	github.com/universalmacro/common v0.0.0-20240124143207-61e4ced8240f
-	github.com/universalmacro/core-api-interfaces v0.0.0-20240125064953-ac5b9348739f
+	github.com/universalmacro/common v0.0.0-20240126095106-3e5f185bf1d1
+	github.com/universalmacro/core-api-interfaces v0.0.0-20240126092612-fd1de38b263d
 	gorm.io/gorm v1.25.5
 )
 
