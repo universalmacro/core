@@ -28,8 +28,13 @@ func (c *NodeController) GetNodeApiConfigByDomain(ctx *gin.Context) {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
 		return
 	}
-	// domain := ctx.Query("domain")
-	// node := c.NodeService.GetNodeByDomain(domain)
+	domain := ctx.Query("domain")
+	node := c.NodeService.GetNodeByFrontendDomain(domain)
+	if node == nil {
+		fault.GinHandler(ctx, fault.ErrNotFound)
+		return
+	}
+	ctx.JSON(http.StatusOK, node.Config().Api)
 }
 
 func (c *NodeController) CreateNode(ctx *gin.Context) {

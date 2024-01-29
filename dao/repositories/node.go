@@ -21,10 +21,6 @@ type NodeRepository struct {
 	*dao.Repository[entities.Node]
 }
 
-type NodeConfigRepository struct {
-	*dao.Repository[entities.NodeConfig]
-}
-
 var nodeConfigRepository = single.NewSingleton[NodeConfigRepository](func() *NodeConfigRepository {
 	return &NodeConfigRepository{
 		dao.NewRepository[entities.NodeConfig](singleton.GetDBInstance()),
@@ -33,4 +29,16 @@ var nodeConfigRepository = single.NewSingleton[NodeConfigRepository](func() *Nod
 
 func GetNodeConfigRepository() *NodeConfigRepository {
 	return nodeConfigRepository.Get()
+}
+
+type NodeConfigRepository struct {
+	*dao.Repository[entities.NodeConfig]
+}
+
+func (r *NodeConfigRepository) GetByFronendDomain(domain string) (*entities.NodeConfig, error) {
+	var nodeConfig entities.NodeConfig
+	if err := r.DB.Where("frontend_domain = ?", domain).First(&nodeConfig).Error; err != nil {
+		return nil, err
+	}
+	return &nodeConfig, nil
 }

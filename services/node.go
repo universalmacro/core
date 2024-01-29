@@ -48,6 +48,14 @@ func (s *NodeService) GetNode(id uint) *models.Node {
 	return models.NewNode(entity)
 }
 
+func (s *NodeService) GetNodeByFrontendDomain(domain string) *models.Node {
+	config, _ := s.nodeConfigRepository.GetByFronendDomain(domain)
+	if config == nil {
+		return nil
+	}
+	return s.GetNode(config.NodeID)
+}
+
 func (s *NodeService) ListNode(index, limit int64) dao.List[models.Node] {
 	if limit == 0 {
 		limit = 1
