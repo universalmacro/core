@@ -128,8 +128,8 @@ github.com/ugorji/go/codec v1.2.12 h1:9LC83zGrHhuUA9l16C9AHXAqEV/2wBQ4nkvumAE65E
 github.com/ugorji/go/codec v1.2.12/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
 github.com/universalmacro/common v0.0.0-20240126095106-3e5f185bf1d1 h1:7nToflf/RzMi3ISX/4s7xswqB/T8tFuqL3244ALmFr0=
 github.com/universalmacro/common v0.0.0-20240126095106-3e5f185bf1d1/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
-github.com/universalmacro/core-api-interfaces v0.0.0-20240129013958-9db97a90d77c h1:cKE9Lt29EUgc/4U3OT4fA66g5O0VS5RWTh2PKexmeKA=
-github.com/universalmacro/core-api-interfaces v0.0.0-20240129013958-9db97a90d77c/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240129040758-cfb8f36a8141 h1:g3w/+MxZz473VzoDvLj+ZnBp+Kv55koyN/3gurCkb/E=
+github.com/universalmacro/core-api-interfaces v0.0.0-20240129040758-cfb8f36a8141/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
 go.uber.org/multierr v1.11.0/go.mod h1:20+QtiLqy0Nd6FdQB9TLXag12DsQkrbs3htMFfDN80Y=
 golang.org/x/arch v0.0.0-20210923205945-b76863e36670/go.mod h1:5om86z9Hs0C8fWVUuoMHwpExlXzs5Tkyp9hOrfG7pp8=
