@@ -110,7 +110,7 @@ func (c *NodeController) UpdateNodeConfig(ctx *gin.Context) {
 	}
 	var nodeConfig models.NodeConfig
 	ctx.ShouldBindJSON(&nodeConfig)
-	node.UpdateConfig(nodeConfig.Api, nodeConfig.Server, nodeConfig.Database, nodeConfig.Redis)
+	node.UpdateConfig(nodeConfig.FrontendDomain, nodeConfig.Api, nodeConfig.Server, nodeConfig.Database, nodeConfig.Redis)
 	ctx.JSON(http.StatusOK, models.NodeConfigConvertor(node.Config()))
 }
 

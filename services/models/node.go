@@ -63,12 +63,16 @@ func (n *Node) Config() *entities.NodeConfig {
 }
 
 func (n *Node) UpdateConfig(
+	frontendDomain *string,
 	api *entities.ApiConfig,
 	server *entities.ServerConfig,
 	database *entities.DBConfig,
 	redis *entities.RedisConfig,
 ) *entities.NodeConfig {
 	nodeConfig := n.Config()
+	if frontendDomain != nil {
+		nodeConfig.FrontendDomain = *frontendDomain
+	}
 	if api != nil {
 		nodeConfig.Api = api
 	}
