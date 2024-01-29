@@ -6,7 +6,6 @@ import (
 	"github.com/gin-gonic/gin"
 	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/common/server"
-	"github.com/universalmacro/common/utils"
 	"github.com/universalmacro/core/controllers/models"
 	"github.com/universalmacro/core/services"
 )
@@ -55,8 +54,7 @@ func (c *NodeController) GetNode(ctx *gin.Context) {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return
 	}
-	id := ctx.Param("id")
-	node := c.NodeService.GetNode(utils.StringToUint(id))
+	node := c.NodeService.GetNode(server.UintID(ctx, "id"))
 	ctx.JSON(http.StatusOK, models.NodeConvertor(node))
 }
 
@@ -72,8 +70,7 @@ func (c *NodeController) ListNode(ctx *gin.Context) {
 }
 
 func (c *NodeController) GetNodeConfig(ctx *gin.Context) {
-	id := ctx.Param("id")
-	node := c.NodeService.GetNode(utils.StringToUint(id))
+	node := c.NodeService.GetNode(server.UintID(ctx, "id"))
 	if node == nil {
 		fault.GinHandler(ctx, fault.ErrNotFound)
 		return
@@ -102,8 +99,7 @@ func (c *NodeController) UpdateNodeConfig(ctx *gin.Context) {
 		fault.GinHandler(ctx, fault.ErrUnauthorized)
 		return
 	}
-	id := ctx.Param("id")
-	node := c.NodeService.GetNode(utils.StringToUint(id))
+	node := c.NodeService.GetNode(server.UintID(ctx, "id"))
 	if node == nil {
 		fault.GinHandler(ctx, fault.ErrNotFound)
 		return
@@ -120,7 +116,6 @@ func (c *NodeController) DeleteNode(ctx *gin.Context) {
 		fault.GinHandler(ctx, fault.ErrPermissionDenied)
 		return
 	}
-	id := ctx.Param("id")
-	c.NodeService.DeleteNode(utils.StringToUint(id))
+	c.NodeService.DeleteNode(server.UintID(ctx, "id"))
 	ctx.JSON(http.StatusNoContent, nil)
 }
