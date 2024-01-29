@@ -68,6 +68,7 @@ func (n *Node) UpdateConfig(
 	server *entities.ServerConfig,
 	database *entities.DBConfig,
 	redis *entities.RedisConfig,
+	tencentCloud *entities.TencentCloudConfig,
 ) *entities.NodeConfig {
 	nodeConfig := n.Config()
 	if frontendDomain != nil {
@@ -84,6 +85,9 @@ func (n *Node) UpdateConfig(
 	}
 	if redis != nil {
 		nodeConfig.Redis = redis
+	}
+	if tencentCloud != nil {
+		nodeConfig.TencentCloudConfig = tencentCloud
 	}
 	repositories.GetNodeConfigRepository().Update(nodeConfig)
 	return nodeConfig

@@ -51,11 +51,12 @@ type Node struct {
 }
 
 type NodeConfig struct {
-	FrontendDomain *string                `json:"frontendDomain"`
-	Api            *entities.ApiConfig    `json:"api"`
-	Server         *entities.ServerConfig `json:"server"`
-	Database       *entities.DBConfig     `json:"database"`
-	Redis          *entities.RedisConfig  `json:"redis"`
+	FrontendDomain *string                      `json:"frontendDomain"`
+	Api            *entities.ApiConfig          `json:"api"`
+	Server         *entities.ServerConfig       `json:"server"`
+	Database       *entities.DBConfig           `json:"database"`
+	Redis          *entities.RedisConfig        `json:"redis"`
+	TencentCloud   *entities.TencentCloudConfig `json:"tencentCloud"`
 }
 
 type CreateMerchantRequest struct {

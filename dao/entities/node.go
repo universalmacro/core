@@ -25,13 +25,14 @@ func (a *Node) BeforeCreate(tx *gorm.DB) (err error) {
 
 type NodeConfig struct {
 	gorm.Model
-	NodeID         uint
-	SecretKey      string        `gorm:"type:varchar(64)"`
-	FrontendDomain string        `json:"frontendDomain" gorm:"type:varchar(64);uniqueIndex"`
-	Api            *ApiConfig    `gorm:"type:json"`
-	Server         *ServerConfig `gorm:"type:json"`
-	Database       *DBConfig     `gorm:"type:json"`
-	Redis          *RedisConfig  `gorm:"type:json"`
+	NodeID             uint
+	SecretKey          string              `gorm:"type:varchar(64)"`
+	FrontendDomain     string              `json:"frontendDomain" gorm:"type:varchar(64);uniqueIndex"`
+	Api                *ApiConfig          `gorm:"type:json"`
+	Server             *ServerConfig       `gorm:"type:json"`
+	Database           *DBConfig           `gorm:"type:json"`
+	Redis              *RedisConfig        `gorm:"type:json"`
+	TencentCloudConfig *TencentCloudConfig `json:"type:json"`
 }
 
 type ApiConfig struct {
@@ -80,6 +81,11 @@ type DBConfig struct {
 	Password string `json:"password" gorm:"type:varchar(64)"`
 	Database string `json:"database" gorm:"type:varchar(64)"`
 	Type     string `json:"type" gorm:"type:varchar(64)"`
+}
+
+type TencentCloudConfig struct {
+	SecretId  string `json:"secretId" gorm:"type:varchar(128)"`
+	SecretKey string `json:"secretKey" gorm:"type:varchar(128)"`
 }
 
 func (j *DBConfig) Scan(value any) error {
