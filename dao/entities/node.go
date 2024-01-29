@@ -25,12 +25,13 @@ func (a *Node) BeforeCreate(tx *gorm.DB) (err error) {
 
 type NodeConfig struct {
 	gorm.Model
-	NodeID    uint
-	SecretKey string        `gorm:"type:varchar(64)"`
-	Api       *ApiConfig    `gorm:"type:json"`
-	Server    *ServerConfig `gorm:"type:json"`
-	Database  *DBConfig     `gorm:"type:json"`
-	Redis     *RedisConfig  `gorm:"type:json"`
+	NodeID         uint
+	SecretKey      string        `gorm:"type:varchar(64)"`
+	FrontendDomain string        `json:"frontendDomain" gorm:"type:varchar(64)"`
+	Api            *ApiConfig    `gorm:"type:json"`
+	Server         *ServerConfig `gorm:"type:json"`
+	Database       *DBConfig     `gorm:"type:json"`
+	Redis          *RedisConfig  `gorm:"type:json"`
 }
 
 type ApiConfig struct {

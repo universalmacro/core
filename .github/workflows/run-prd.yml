@@ -2,6 +2,9 @@ name: Run PRD docker
 
 on:
   workflow_dispatch:
+env:
+  PORT: "10300"
+  DOCKER_NAME: "core"
 jobs:
   Production:
     runs-on: ubuntu-latest
@@ -13,6 +16,6 @@ jobs:
           username: ${{ secrets.USERNAME }}
           password: ${{ secrets.PASSWORD }}
           script: |
-            sudo docker stop ${{ vars.DOCKER_NAME }}
-            sudo docker rm ${{ vars.DOCKER_NAME }}
-            sudo docker run -dp 10300:8080 --name ${{ vars.DOCKER_NAME }} --mount type=bind,source="$(pwd)"/config/prd.core.env.yaml,target=/app/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ vars.DOCKER_NAME }}
+            sudo docker stop ${{ env.DOCKER_NAME }}
+            sudo docker rm ${{ env.DOCKER_NAME }}
+            sudo docker run -dp ${{env.PORT}}:8080 --name ${{ env.DOCKER_NAME }} --mount type=bind,source="$(pwd)"/config/prd.core.env.yaml,target=/app/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_NAME }}
