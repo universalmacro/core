@@ -83,15 +83,23 @@ type DBConfig struct {
 	Type     string `json:"type" gorm:"type:varchar(64)"`
 }
 
-type TencentCloudConfig struct {
-	SecretId  string `json:"secretId" gorm:"type:varchar(128)"`
-	SecretKey string `json:"secretKey" gorm:"type:varchar(128)"`
-}
-
 func (j *DBConfig) Scan(value any) error {
 	return utils.ScanJson(value, j)
 }
 
 func (j DBConfig) Value() (driver.Value, error) {
+	return json.Marshal(j)
+}
+
+type TencentCloudConfig struct {
+	SecretId  string `json:"secretId" gorm:"type:varchar(128)"`
+	SecretKey string `json:"secretKey" gorm:"type:varchar(128)"`
+}
+
+func (j *TencentCloudConfig) Scan(value any) error {
+	return utils.ScanJson(value, j)
+}
+
+func (j TencentCloudConfig) Value() (driver.Value, error) {
 	return json.Marshal(j)
 }
