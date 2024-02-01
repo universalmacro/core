@@ -17,7 +17,7 @@ func newNodeService() *NodeService {
 	}
 }
 
-var nodeService = singleton.NewSingleton(newNodeService, singleton.Eager)
+var nodeService = singleton.SingletonFactory(newNodeService, singleton.Eager)
 
 func GetNodeService() *NodeService {
 	return nodeService.Get()

@@ -32,7 +32,7 @@ func init() {
 	}
 }
 
-var adminService = singleton.NewSingleton(newAdminService, singleton.Eager)
+var adminService = singleton.SingletonFactory(newAdminService, singleton.Eager)
 
 func GetAdminService() *AdminService {
 	return adminService.Get()

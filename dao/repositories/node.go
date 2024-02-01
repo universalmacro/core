@@ -7,7 +7,7 @@ import (
 	"github.com/universalmacro/core/singleton"
 )
 
-var nodeRepository = single.NewSingleton[NodeRepository](func() *NodeRepository {
+var nodeRepository = single.SingletonFactory[NodeRepository](func() *NodeRepository {
 	return &NodeRepository{
 		dao.NewRepository[entities.Node](singleton.GetDBInstance()),
 	}
@@ -21,7 +21,7 @@ type NodeRepository struct {
 	*dao.Repository[entities.Node]
 }
 
-var nodeConfigRepository = single.NewSingleton[NodeConfigRepository](func() *NodeConfigRepository {
+var nodeConfigRepository = single.SingletonFactory[NodeConfigRepository](func() *NodeConfigRepository {
 	return &NodeConfigRepository{
 		dao.NewRepository[entities.NodeConfig](singleton.GetDBInstance()),
 	}

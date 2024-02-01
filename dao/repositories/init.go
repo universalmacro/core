@@ -11,7 +11,7 @@ func init() {
 	singleton.GetDBInstance().AutoMigrate(&entities.Admin{}, &entities.Node{}, &entities.NodeConfig{})
 }
 
-var adminRepository = single.NewSingleton[AdminRepository](func() *AdminRepository {
+var adminRepository = single.SingletonFactory[AdminRepository](func() *AdminRepository {
 	return &AdminRepository{
 		dao.NewRepository[entities.Admin](singleton.CreateDBInstance()),
 	}
