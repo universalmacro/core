@@ -1,6 +1,7 @@
 package services
 
 import (
+	"context"
 	"errors"
 	"time"
 
@@ -89,7 +90,7 @@ func (s *AdminService) CreateAdmin(account, password, role string) (*models.Admi
 	return models.NewAdmin(admin), nil
 }
 
-func (s *AdminService) GetAdminById(id uint) *models.Admin {
+func (s *AdminService) GetAdminById(ctx context.Context, id uint) *models.Admin {
 	admin, _ := s.adminRepository.GetById(id)
 	if admin == nil {
 		return nil
@@ -97,12 +98,12 @@ func (s *AdminService) GetAdminById(id uint) *models.Admin {
 	return models.NewAdmin(admin)
 }
 
-func (s *AdminService) VerifyToken(token string) (*models.Admin, error) {
+func (s *AdminService) VerifyToken(ctx context.Context, token string) (*models.Admin, error) {
 	claims, err := auth.VerifyJwt(token)
 	if err != nil {
 		return nil, err
 	}
-	admin := s.GetAdminById(utils.StringToUint(claims["adminId"].(string)))
+	admin := s.GetAdminById(ctx, utils.StringToUint(claims["adminId"].(string)))
 	if admin == nil {
 		return nil, fault.ErrNotFound
 	}
@@ -139,8 +140,8 @@ func (s *AdminService) UpdatePassword(id uint, password string) *models.Admin {
 	return admin
 }
 
-func (s *AdminService) UpdateSelfPassword(id, oldPassword, password string) error {
-	admin := s.GetAdminById(utils.StringToUint(id))
+func (s *AdminService) UpdateSelfPassword(ctx context.Context, id, oldPassword, password string) error {
+	admin := s.GetAdminById(ctx, utils.StringToUint(id))
 	if admin == nil {
 		return fault.ErrBadRequest
 	}

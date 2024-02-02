@@ -62,7 +62,7 @@ func (c *AdminController) UpdateAdminSelfPassword(ctx *gin.Context) {
 		})
 		return
 	}
-	err := c.adminService.UpdateSelfPassword(utils.UintToString(admin.ID()), *updatePasswordRequest.OldPassword, updatePasswordRequest.Password)
+	err := c.adminService.UpdateSelfPassword(ctx, utils.UintToString(admin.ID()), *updatePasswordRequest.OldPassword, updatePasswordRequest.Password)
 	if err != nil {
 		fault.GinHandler(ctx, err)
 		return
