@@ -37,7 +37,7 @@ type NodeConfigRepository struct {
 
 func (r *NodeConfigRepository) GetByFronendDomain(domain string) (*entities.NodeConfig, error) {
 	var nodeConfig entities.NodeConfig
-	if err := r.DB.Where("frontend_domain = ?", domain).First(&nodeConfig).Error; err != nil {
+	if err := r.DB.Where("frontend_domain = ?", domain).Find(&nodeConfig).Error; err != nil {
 		return nil, err
 	}
 	return &nodeConfig, nil
