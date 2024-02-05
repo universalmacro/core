@@ -71,8 +71,10 @@ func (n *Node) UpdateConfig(
 	tencentCloud *entities.TencentCloudConfig,
 ) *entities.NodeConfig {
 	nodeConfig := n.Config()
+	fmt.Println(frontendDomain)
+	fmt.Println(*nodeConfig)
 	if frontendDomain != nil {
-		nodeConfig.FrontendDomain = *frontendDomain
+		nodeConfig.FrontendDomain = frontendDomain
 	}
 	if api != nil {
 		nodeConfig.Api = api

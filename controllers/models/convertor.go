@@ -73,7 +73,7 @@ func NodeConfigConvertor(nodeConfig *entities.NodeConfig) *NodeConfig {
 		return nil
 	}
 	return &NodeConfig{
-		FrontendDomain: &nodeConfig.FrontendDomain,
+		FrontendDomain: nodeConfig.FrontendDomain,
 		Api:            nodeConfig.Api,
 		Server:         nodeConfig.Server,
 		Database:       nodeConfig.Database,

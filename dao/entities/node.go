@@ -27,7 +27,7 @@ type NodeConfig struct {
 	gorm.Model
 	NodeID             uint
 	SecretKey          string              `gorm:"type:varchar(64)"`
-	FrontendDomain     string              `json:"frontendDomain" gorm:"type:varchar(64);uniqueIndex"`
+	FrontendDomain     *string             `json:"frontendDomain" gorm:"type:varchar(256);uniqueIndex"`
 	Api                *ApiConfig          `gorm:"type:json"`
 	Server             *ServerConfig       `gorm:"type:json"`
 	Database           *DBConfig           `gorm:"type:json"`
