@@ -22,11 +22,6 @@ type NodeController struct {
 
 // GetNodeApiConfigByDomain implements coreapiinterfaces.NodeApi.
 func (c *NodeController) GetNodeApiConfigByDomain(ctx *gin.Context) {
-	admin := getAdmin(ctx)
-	if admin == nil {
-		fault.GinHandler(ctx, fault.ErrUnauthorized)
-		return
-	}
 	domain := ctx.Query("domain")
 	node := c.NodeService.GetNodeByFrontendDomain(domain)
 	if node == nil {
