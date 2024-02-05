@@ -73,8 +73,9 @@ func (n *Node) UpdateConfig(
 	nodeConfig := n.Config()
 	fmt.Println(frontendDomain)
 	fmt.Println(*nodeConfig)
+	domaon := "domain"
 	if frontendDomain != nil {
-		nodeConfig.FrontendDomain = frontendDomain
+		nodeConfig.FrontendDomain = &domaon
 	}
 	if api != nil {
 		nodeConfig.Api = api
