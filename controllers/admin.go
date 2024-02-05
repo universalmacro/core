@@ -4,8 +4,10 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/pquerna/otp/totp"
 	"github.com/universalmacro/common/fault"
 	"github.com/universalmacro/common/utils"
+	api "github.com/universalmacro/core-api-interfaces"
 	"github.com/universalmacro/core/controllers/models"
 	"github.com/universalmacro/core/services"
 )
@@ -16,6 +18,43 @@ func newAdminController() *AdminController {
 
 type AdminController struct {
 	adminService *services.AdminService
+}
+
+// CreateTotp implements coreapiinterfaces.AdminApi.
+func (*AdminController) UpdateTotp(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	var request api.UpdateTotpRequest
+	ctx.ShouldBindJSON(&request)
+	if ok := admin.UpdateTotp(request.Url, request.TotpCode); !ok {
+		fault.GinHandler(ctx, fault.ErrBadRequest)
+		return
+	}
+	ctx.JSON(http.StatusNoContent, nil)
+}
+
+// GetTotp implements coreapiinterfaces.AdminApi.
+func (*AdminController) GetTotp(ctx *gin.Context) {
+	admin := getAdmin(ctx)
+	if admin == nil {
+		fault.GinHandler(ctx, fault.ErrUnauthorized)
+		return
+	}
+	key, _ := totp.Generate(totp.GenerateOpts{
+		Issuer:      "universalmacro.com",
+		AccountName: admin.Account(),
+	})
+	ctx.JSON(http.StatusOK, api.Totp{
+		Url: key.URL(),
+	})
+}
+
+// UpdateAdminRole implements coreapiinterfaces.AdminApi.
+func (*AdminController) UpdateAdminRole(ctx *gin.Context) {
+	panic("unimplemented")
 }
 
 // GetAdminSelf implements coreapiinterfaces.AdminApi.

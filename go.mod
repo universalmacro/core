@@ -5,14 +5,16 @@ go 1.21.6
 require (
 	github.com/gin-gonic/gin v1.9.1
 	github.com/golang-jwt/jwt v3.2.2+incompatible
+	github.com/pquerna/otp v1.4.0
 	github.com/universalmacro/common v0.0.0-20240202071957-beff37c2d6a7
-	github.com/universalmacro/core-api-interfaces v0.0.0-20240129083834-6d2df68fa52f
+	github.com/universalmacro/core-api-interfaces v0.0.0-20240205023342-7ffafaef2b6f
 	gorm.io/gorm v1.25.5
 )
 
 require (
 	github.com/Depado/ginprom v1.8.0 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
+	github.com/boombuler/barcode v1.0.1-0.20190219062509-6c824513bacc // indirect
 	github.com/bwmarrin/snowflake v0.3.0 // indirect
 	github.com/bytedance/sonic v1.10.2 // indirect
 	github.com/cespare/xxhash/v2 v2.2.0 // indirect

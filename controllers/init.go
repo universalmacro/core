@@ -37,6 +37,7 @@ func Init(addr ...string) {
 	coreapiinterfaces.AdminApiBinding(router, adminController)
 	coreapiinterfaces.NodeApiBinding(router, nodeController)
 	coreapiinterfaces.SessionApiBinding(router, sessionsControllers)
+	coreapiinterfaces.RoleApiBinding(router, newRolesController())
 	router.Run(addr...)
 }
 

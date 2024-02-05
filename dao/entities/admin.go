@@ -12,7 +12,9 @@ type Admin struct {
 	Account string `gorm:"type:varchar(64);uniqueIndex"`
 	*data.PhoneNumber
 	auth.Password
-	Role string `gorm:"type:varchar(20)"`
+	Enable2FA bool
+	Role      string `gorm:"type:varchar(20)"`
+	Totp      string `gorm:"type:varchar(256)"`
 }
 
 var adminIdGenerator = snowflake.NewIdGenertor(0)

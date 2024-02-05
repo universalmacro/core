@@ -3,7 +3,10 @@ package models
 import (
 	"time"
 
+	"github.com/pquerna/otp"
+	"github.com/pquerna/otp/totp"
 	"github.com/universalmacro/core/dao/entities"
+	"github.com/universalmacro/core/dao/repositories"
 )
 
 func NewAdmin(entity *entities.Admin) *Admin {
@@ -57,6 +60,23 @@ func (a *Admin) UpdatedAt() time.Time {
 
 func (a *Admin) UpdatePassword(password string) {
 	a.entity.SetPassword(password)
+}
+
+func (a *Admin) UpdateTotp(url, code string) bool {
+	key, err := otp.NewKeyFromURL(url)
+	if err != nil {
+		return false
+	}
+	if !totp.Validate(code, key.Secret()) {
+		return false
+	}
+	a.entity.Totp = url
+	a.Submit()
+	return true
+}
+
+func (a *Admin) Submit() {
+	repositories.GetAdminRepository().Update(a.entity)
 }
 
 type PhoneNumber struct {

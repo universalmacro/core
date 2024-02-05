@@ -9,7 +9,7 @@ import (
 )
 
 func AdminConvertor(admin models.Admin) api.Admin {
-	role := api.Role(admin.Role())
+	role := admin.Role()
 	return api.Admin{
 		Id:          utils.UintToString(admin.ID()),
 		Account:     admin.Account(),
