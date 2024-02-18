@@ -130,10 +130,8 @@ github.com/twitchyliquid64/golang-asm v0.15.1 h1:SU5vSMR7hnwNxj24w34ZyCi/FmDZTkS
 github.com/twitchyliquid64/golang-asm v0.15.1/go.mod h1:a1lVb/DtPvCB8fslRZhAngC2+aY1QWCk3Cedj/Gdt08=
 github.com/ugorji/go/codec v1.2.12 h1:9LC83zGrHhuUA9l16C9AHXAqEV/2wBQ4nkvumAE65EE=
 github.com/ugorji/go/codec v1.2.12/go.mod h1:UNopzCgEMSXjBc6AOMqYvWC1ktqTAfzJZUZgYf6w6lg=
-github.com/universalmacro/common v0.0.0-20240202071957-beff37c2d6a7 h1:J4rWPN6xmuT3eapPgCAejlWZACk6xYRtp7ZAuh/hDDI=
-github.com/universalmacro/common v0.0.0-20240202071957-beff37c2d6a7/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
-github.com/universalmacro/common v0.0.0-20240218050736-53f94621bbd2 h1:Xcg82LxTCyiBZzZi3fO5aCBAxCduqwuoJxi11LxVacY=
-github.com/universalmacro/common v0.0.0-20240218050736-53f94621bbd2/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
+github.com/universalmacro/common v0.0.0-20240218073011-42551a92e2ff h1:FLf80NMCmYct7nP4RVQG9Q6YkRZ7M0E19jghzIAmh0U=
+github.com/universalmacro/common v0.0.0-20240218073011-42551a92e2ff/go.mod h1:5WTRH/HISaPJys1dbGnT56K22kuV1rIUXDQO633XYMs=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240205023342-7ffafaef2b6f h1:Qd6rGNLFvGE15Ys+jHbG/ItHLqtAXsRl4RY36S4drtU=
 github.com/universalmacro/core-api-interfaces v0.0.0-20240205023342-7ffafaef2b6f/go.mod h1:Lm1DFvmOe9Z7WAqNrDWEpdiUNl7Z2USy3ni4X2joctc=
 go.uber.org/multierr v1.11.0 h1:blXXJkSxSSfBVBlC76pxqeO+LN3aDfLQo+309xJstO0=
