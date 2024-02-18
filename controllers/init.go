@@ -43,24 +43,18 @@ func Init(addr ...string) {
 
 func auth() func(ctx *gin.Context) {
 	var adminService = services.GetAdminService()
-	// logger := ioc.GetLogHandler()
-	// logger = logger.With("module", "auth")
-	// logger2 := ioc.GetLogHandler().With("module2", "auth2")
 	return func(ctx *gin.Context) {
 		var headers Headers
 		ctx.ShouldBindHeader(&headers)
 		authorization := headers.Authorization
 		splited := strings.Split(authorization, " ")
-		// requestId := server.GetRequestID(ctx)
 		if authorization != "" && len(splited) == 2 {
 			admin, err := adminService.VerifyToken(ctx, splited[1])
 			if admin != nil && err == nil {
 				ctx.Set("admin", admin)
 			} else {
-				// logger.Warn("Invalid Token", slog.Uint64("requestId", uint64(requestId)))
 			}
 		} else {
-			// logger2.Info("No Authorization Header", slog.String("Test", "One"))
 		}
 		ctx.Next()
 	}
