@@ -6,7 +6,6 @@ import (
 	"time"
 
 	"github.com/golang-jwt/jwt"
-	"github.com/universalmacro/common/auth"
 	"github.com/universalmacro/common/config"
 	"github.com/universalmacro/common/dao"
 	"github.com/universalmacro/common/fault"
@@ -15,6 +14,7 @@ import (
 	"github.com/universalmacro/common/utils"
 	"github.com/universalmacro/core/dao/entities"
 	"github.com/universalmacro/core/dao/repositories"
+	"github.com/universalmacro/core/ioc"
 	"github.com/universalmacro/core/services/models"
 )
 
@@ -61,7 +61,7 @@ func (a *AdminService) CreateSession(account, password string) (string, error) {
 	}
 	expired := time.Now().Add(time.Hour * 24 * 7).Unix()
 	claims := Claims{ID: sessionIdGenerator.String(), AdminId: utils.UintToString(admin.ID), StandardClaims: jwt.StandardClaims{ExpiresAt: expired}}
-	return auth.SignJwt(claims)
+	return ioc.GetJwtSigner().SignJwt(claims)
 }
 
 var ErrAccountExist = errors.New("account exist")
@@ -99,7 +99,7 @@ func (s *AdminService) GetAdminById(ctx context.Context, id uint) *models.Admin 
 }
 
 func (s *AdminService) VerifyToken(ctx context.Context, token string) (*models.Admin, error) {
-	claims, err := auth.VerifyJwt(token)
+	claims, err := ioc.GetJwtSigner().VerifyJwt(token)
 	if err != nil {
 		return nil, err
 	}
