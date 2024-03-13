@@ -8,11 +8,7 @@ import (
 	"gorm.io/gorm"
 )
 
-var dbSingleton = single.SingletonFactory[gorm.DB](CreateDBInstance, single.Lazy)
-
-func GetDBInstance() *gorm.DB {
-	return dbSingleton.Get()
-}
+var GetDBInstance = single.EagerSingleton(CreateDBInstance)
 
 func CreateDBInstance() *gorm.DB {
 	db, err := dao.NewConnection(

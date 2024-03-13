@@ -11,15 +11,11 @@ func init() {
 	singleton.GetDBInstance().AutoMigrate(&entities.Admin{}, &entities.Node{}, &entities.NodeConfig{})
 }
 
-var adminRepository = single.SingletonFactory[AdminRepository](func() *AdminRepository {
+var GetAdminRepository = single.EagerSingleton(func() *AdminRepository {
 	return &AdminRepository{
 		dao.NewRepository[entities.Admin](singleton.CreateDBInstance()),
 	}
-}, single.Eager)
-
-func GetAdminRepository() *AdminRepository {
-	return adminRepository.Get()
-}
+})
 
 type AdminRepository struct {
 	*dao.Repository[entities.Admin]

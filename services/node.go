@@ -17,11 +17,7 @@ func newNodeService() *NodeService {
 	}
 }
 
-var nodeService = singleton.SingletonFactory(newNodeService, singleton.Eager)
-
-func GetNodeService() *NodeService {
-	return nodeService.Get()
-}
+var GetNodeService = singleton.EagerSingleton(newNodeService)
 
 type NodeService struct {
 	nodeRepository       *repositories.NodeRepository

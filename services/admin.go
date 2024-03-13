@@ -33,11 +33,7 @@ func init() {
 	}
 }
 
-var adminService = singleton.SingletonFactory(newAdminService, singleton.Eager)
-
-func GetAdminService() *AdminService {
-	return adminService.Get()
-}
+var GetAdminService = singleton.EagerSingleton(newAdminService)
 
 func newAdminService() *AdminService {
 	return &AdminService{adminRepository: repositories.GetAdminRepository()}

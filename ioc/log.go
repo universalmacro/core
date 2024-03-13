@@ -9,20 +9,12 @@ import (
 	"github.com/universalmacro/common/ulog"
 )
 
-var loggerSingleton = singleton.SingletonFactory(func() *slog.Logger {
+var GetLogHandler = singleton.EagerSingleton(func() *slog.Logger {
 	return slog.New(ulog.NewHandler(0))
 	// return slog.New(slog.NewJSONHandler(os.Stdout, nil))
-}, singleton.Eager)
+})
 
-func GetLogHandler() *slog.Logger {
-	return loggerSingleton.Get()
-}
-
-var jwtSignerSingleton = singleton.SingletonFactory[auth.JwtSigner](createJwtSignerSingleton, singleton.Eager)
-
-func GetJwtSigner() *auth.JwtSigner {
-	return jwtSignerSingleton.Get()
-}
+var GetJwtSigner = singleton.EagerSingleton(createJwtSignerSingleton)
 
 func createJwtSignerSingleton() *auth.JwtSigner {
 	return auth.NewJwtSigner([]byte(config.GetString("jwt.secret")))
