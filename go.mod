@@ -7,7 +7,7 @@ require (
 	github.com/golang-jwt/jwt v3.2.2+incompatible
 	github.com/pquerna/otp v1.4.0
 	github.com/universalmacro/common v0.0.0-20240313084251-bc1515df6e1f
-	github.com/universalmacro/core-api-interfaces v0.0.0-20240205023342-7ffafaef2b6f
+	github.com/universalmacro/core-api-interfaces v0.0.0-20240313084927-cbae1aa7030f
 	gorm.io/gorm v1.25.7
 )
 
