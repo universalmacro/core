@@ -18,4 +18,4 @@ jobs:
           script: |
             sudo docker stop ${{ env.DOCKER_NAME }}
             sudo docker rm ${{ env.DOCKER_NAME }}
-            sudo docker run -dp ${{env.PORT}}:8080 --name ${{ env.DOCKER_NAME }} --mount type=bind,source="$(pwd)"/config/prd.core.env.yaml,target=/app/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_NAME }}
+            sudo docker run -dp ${{env.PORT}}:8080 --name ${{ env.DOCKER_NAME }} --mount type=bind,source="$(pwd)"/config/prd.core.env.yaml,target=/.env.yaml ${{ secrets.DOCKERHUB_USERNAME }}/${{ env.DOCKER_NAME }}
